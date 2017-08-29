@@ -1,4 +1,4 @@
-![GPD Pocket](gpd-pocket/imgs/pocket_arch.png "Yay Gimp!")
+![GPD Pocket](https://raw.githubusercontent.com/njkli/gpd-pocket/master/imgs/pocket_arch.png "Yay Gimp!")
 # GPD Pocket
   In hopes of 4.15 having ootb support, here's a bit of a quick-fix(TM) - because why pollute AUR?
 
