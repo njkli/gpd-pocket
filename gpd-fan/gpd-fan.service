@@ -1,0 +1,14 @@
+[Unit]
+Description=GPD Fan Daemon
+DefaultDependencies=no
+After=sysinit.target local-fs.target
+Before=basic.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/gpd-fan
+ExecStart=/usr/sbin/gpd-fan
+SyslogIdentifier="gpd-fan"
+
+[Install]
+WantedBy=basic.target
