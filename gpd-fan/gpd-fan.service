@@ -8,6 +8,8 @@ Before=basic.target
 Type=simple
 EnvironmentFile=-/etc/default/gpd-fan
 ExecStart=/usr/sbin/gpd-fan
+Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=basic.target

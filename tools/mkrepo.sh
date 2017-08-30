@@ -55,7 +55,7 @@ _mkpkg() {
 
     msg_blue "Building in $builddir"
     sudo runuser -l $BUILDUSER -c "cd $builddir && makepkg -s -f --noconfirm"
-    sudo chown $UID:$GID $builddir/*.pkg.tar.xz
+    sudo chown $USER $builddir/*.pkg.tar.xz
     cp $builddir/*.pkg.tar.xz ./
     sudo rm -rf $builddir
 }
