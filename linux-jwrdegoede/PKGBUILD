@@ -20,14 +20,11 @@ makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'libelf')
 options=('!strip')
 # 'git+https://github.com/jwrdegoede/linux-sunxi'
 source=('https://github.com/jwrdegoede/linux-sunxi/archive/master.zip'
-        'config.i686' 'config.x86_64'
         '90-linux.hook'
         'linux.preset'
         )
 
 sha256sums=('SKIP'
-            'SKIP'
-            'SKIP'
             'SKIP'
             'SKIP')
 
