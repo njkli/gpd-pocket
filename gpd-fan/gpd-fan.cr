@@ -34,7 +34,7 @@ class GpdFan < Admiral::Command
 
   def run
     @@logger.level = Logger::Severity.parse(flags.loglevel.capitalize)
-    @@logger.info "Starting..."
+    @@logger.info "nozzle check..." if flags.feedback
     gpio_init
     if flags.feedback
       set_fan(1,0)

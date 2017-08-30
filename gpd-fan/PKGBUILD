@@ -1,0 +1,58 @@
+# Maintainer:  <voobscout@archlinux.info>
+
+# Inspired by cawilliamson https://github.com/cawilliamson/ansible-gpdpocket
+
+pkgname=gpd-fan
+pkgver=0.1.0
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/njkli/gpd-pocket/tree/master/gpd-fan"
+license=('MIT')
+provides=('gpd-fan')
+depends=('i2c-tools' 'thermald' 'tlp' 'gc' 'libatomic_ops' 'pcre' 'libevent' 'llvm-libs')
+makedepends=('crystal' 'shards')
+install=gpd-fan.install
+source=('gpd-fan.cr'
+        'gpd-fan.example'
+        'gpd-fan.service'
+        'gpd-fan.sleep'
+        'shard.yml'
+       )
+sha256sums=('9b76a9a7716b23ad0cbf51fff35531659a746218cd3a1db59694ca16fb527a87'
+            'cfbf435913ce877ecba888b4681ec822a85e3dfbb7fc04c1e60932feed751ce8'
+            'a158232b78fe354361d149f7ce7da3f83603b0c6e8eeb5ffd262080e96632a22'
+            'dd30ca69076fd7548449f33e701fe09df889595443e93a04f23a3e581444a914'
+            '84493819929edd6851d383720a81755ffc1ec1dc407bbaf063e21bd88f95d7f8')
+
+# pkgver() {
+#   cd "$pkgname"
+#   ( set -o pipefail
+#     git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+#     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+#   )
+# }
+
+prepare() {
+  find ./ -type l -delete
+  for i in ${source[@]}; do cp ../$i ./; done
+}
+
+build() {
+  crystal deps
+  msg 'Building binary...'
+  crystal build --release gpd-fan.cr
+}
+
+package() {
+  mkdir -p $pkgdir/usr/bin
+  mkdir -p $pkgdir/usr/lib/systemd/system
+  mkdir -p $pkgdir/etc/default
+  mkdir -p $pkgdir/usr/lib/systemd/system-sleep
+
+  install -Dm0755 "$srcdir/gpd-fan" "$pkgdir/usr/bin/gpd-fan"
+  install -Dm0644 "$srcdir/gpd-fan.service" "$pkgdir/usr/lib/systemd/system/gpd-fan.service"
+  install -Dm0644 "$srcdir/gpd-fan.example" "$pkgdir/etc/default/gpd-fan.example"
+  install -Dm0755 "$srcdir/gpd-fan.sleep" "$pkgdir/usr/lib/systemd/system-sleep/gpd-fan"
+}
+
+# vim:set ts=2 sw=2 et:
