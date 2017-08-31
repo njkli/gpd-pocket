@@ -4,7 +4,7 @@
 
 pkgname=gpd-fan
 pkgver=0.1.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://github.com/njkli/gpd-pocket/tree/master/gpd-fan"
 license=('MIT')
@@ -21,7 +21,7 @@ source=('gpd-fan.cr'
 sha256sums=('6266217386d9a8087bb969cada0f97648c56e551456491e674216606f3b60018'
             'cfbf435913ce877ecba888b4681ec822a85e3dfbb7fc04c1e60932feed751ce8'
             'bde27d6d7537005687dd3bd29f54b93359d16967a07db743528cf1e3ae0a2e9b'
-            'dd30ca69076fd7548449f33e701fe09df889595443e93a04f23a3e581444a914'
+            '3905269d7762fae0ad942619d3a4db50fd6885f77a5d6719d64d087c05502b13'
             '84493819929edd6851d383720a81755ffc1ec1dc407bbaf063e21bd88f95d7f8')
 
 prepare() {
