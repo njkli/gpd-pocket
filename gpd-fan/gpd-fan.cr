@@ -2,6 +2,7 @@ require "logger"
 require "admiral"
 
 class GpdFan < Admiral::Command
+  SPEED = {"max" => [1,1], "med" => [0,1], "min" => [1,0 ], "off" => [0,0]}
   @@inputs = Dir.glob("/sys/devices/platform/coretemp.0/hwmon/hwmon*/temp*_input")
   @@gpio = [] of String
   @@logger = Logger.new(STDOUT)
@@ -26,21 +27,37 @@ class GpdFan < Admiral::Command
   define_flag turbo : Int32,
      default: (ENV.keys.includes?("TURBO") ? ENV["TURBO"].to_i32 : 85_i32),
      description: "Temperature required to turn off turbo"
-  define_flag feedback : Bool,
-     default: ((ENV.keys.includes?("FEEDBACK") && ENV["FEEDBACK"] == "false") ? false : true),
-     description: "Set fan speed to minimum and sleep for 3 seconds on start"
+  define_flag speed : String,
+     short: s,
+     long: speed,
+     description: "Set fan speed [off, min, med, max] manually and exit"
   define_flag loglevel : String,
      default: (ENV.keys.includes?("LOGLEVEL") ? ENV["LOGLEVEL"] : "info"),
      description: "Values are [debug, info, warn, error, fatal, unknown]"
+  define_flag feedback : Bool,
+     default: ((ENV.keys.includes?("FEEDBACK") && ENV["FEEDBACK"] == "false") ? false : true),
+     description: "Set fan speed to minimum and sleep for 3 seconds on start"
+
+  # TODO: Make it into s systemd-timer instead
+  define_flag daemon : Bool,
+     short: d,
+     long: daemon,
+     description: "false = use with systemd-timer, true = manage the timer ourselves"
 
   def run
     @@logger.level = Logger::Severity.parse(flags.loglevel.capitalize)
     gpio_init
-    if flags.feedback
-      @@logger.info "nozzle check..."
-      set_fan(1,0)
-      sleep(3)
-    end
+    flags.daemon ? daemon : (flags.speed ? speed(flags.speed) : regulate)
+  end
+
+  def nozzle_check
+    @@logger.info "nozzle check..."
+    set_fan(1,0)
+    sleep(3)
+  end
+
+  def daemon
+    nozzle_check if flags.feedback
     while true
       regulate
       sleep(flags.time)
@@ -53,8 +70,13 @@ class GpdFan < Admiral::Command
       ctl = "/sys/class/gpio/export"
       File.write(ctl, i) unless File.writable?(pin)
       @@gpio << pin
-      @@logger.debug "Initialized #{pin}!"
+      @@logger.debug "Initialized #{pin}"
     end
+  end
+
+  def speed(val)
+    val = SPEED[flags.speed]
+    set_fan(val[0], val[1])
   end
 
   def set_fan(a,b)

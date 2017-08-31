@@ -7,8 +7,8 @@ Before=basic.target
 [Service]
 Type=simple
 EnvironmentFile=-/etc/default/gpd-fan
-ExecStart=/usr/sbin/gpd-fan
-Restart=always
+ExecStart=/usr/sbin/gpd-fan -d
+Restart=on-failure
 RestartSec=5
 
 [Install]

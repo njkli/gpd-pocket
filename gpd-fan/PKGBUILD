@@ -18,9 +18,9 @@ source=('gpd-fan.cr'
         'gpd-fan.sleep'
         'shard.yml'
        )
-sha256sums=('3ec694bee0f6123922e3935dd6a82321a6c935ed2c656e47bf99d32a653fa5f0'
+sha256sums=('6266217386d9a8087bb969cada0f97648c56e551456491e674216606f3b60018'
             'cfbf435913ce877ecba888b4681ec822a85e3dfbb7fc04c1e60932feed751ce8'
-            'b3196d907b3dedf566fd54aee60fae021b20f11519c5487293d8ac8cb6256113'
+            'bde27d6d7537005687dd3bd29f54b93359d16967a07db743528cf1e3ae0a2e9b'
             'dd30ca69076fd7548449f33e701fe09df889595443e93a04f23a3e581444a914'
             '84493819929edd6851d383720a81755ffc1ec1dc407bbaf063e21bd88f95d7f8')
 
@@ -36,7 +36,7 @@ pkgver() {
 build() {
   crystal deps
   msg 'Building binary...'
-  crystal build gpd-fan.cr
+  crystal build --release --no-debug gpd-fan.cr
 }
 
 package() {
