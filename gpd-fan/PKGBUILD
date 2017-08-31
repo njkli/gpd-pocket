@@ -4,7 +4,7 @@
 
 pkgname=gpd-fan
 pkgver=0.1.0
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 url="https://github.com/njkli/gpd-pocket/tree/master/gpd-fan"
 license=('MIT')
@@ -18,7 +18,7 @@ source=('gpd-fan.cr'
         'gpd-fan.sleep'
         'shard.yml'
        )
-sha256sums=('6266217386d9a8087bb969cada0f97648c56e551456491e674216606f3b60018'
+sha256sums=('7bf09108055c56eb2a8652fdfb43baa500d3bd381fc34232ba0eb2759726f995'
             'cfbf435913ce877ecba888b4681ec822a85e3dfbb7fc04c1e60932feed751ce8'
             'bde27d6d7537005687dd3bd29f54b93359d16967a07db743528cf1e3ae0a2e9b'
             '3905269d7762fae0ad942619d3a4db50fd6885f77a5d6719d64d087c05502b13'
@@ -46,6 +46,7 @@ package() {
   mkdir -p $pkgdir/usr/lib/systemd/system-sleep
 
   install -Dm0755 "$srcdir/gpd-fan" "$pkgdir/usr/bin/gpd-fan"
+  # TODO: Perhaps make it into systemd-timer instead?
   install -Dm0644 "$srcdir/gpd-fan.service" "$pkgdir/usr/lib/systemd/system/gpd-fan.service"
   install -Dm0644 "$srcdir/gpd-fan.example" "$pkgdir/etc/default/gpd-fan.example"
   install -Dm0755 "$srcdir/gpd-fan.sleep" "$pkgdir/usr/lib/systemd/system-sleep/gpd-fan"

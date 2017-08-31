@@ -7,6 +7,7 @@ class GpdFan < Admiral::Command
   @@gpio = [] of String
   @@logger = Logger.new(STDOUT)
   @@logger.formatter = Logger::Formatter.new do |severity, datetime, progname, message, io|
+    io << "[#{severity}] "
     io << message
   end
 
@@ -38,7 +39,6 @@ class GpdFan < Admiral::Command
      default: ((ENV.keys.includes?("FEEDBACK") && ENV["FEEDBACK"] == "false") ? false : true),
      description: "Set fan speed to minimum and sleep for 3 seconds on start"
 
-  # TODO: Make it into s systemd-timer instead
   define_flag daemon : Bool,
      short: d,
      long: daemon,
@@ -48,20 +48,6 @@ class GpdFan < Admiral::Command
     @@logger.level = Logger::Severity.parse(flags.loglevel.capitalize)
     gpio_init
     flags.daemon ? daemon : (flags.speed ? speed(flags.speed) : regulate)
-  end
-
-  def nozzle_check
-    @@logger.info "nozzle check..."
-    set_fan(1,0)
-    sleep(3)
-  end
-
-  def daemon
-    nozzle_check if flags.feedback
-    while true
-      regulate
-      sleep(flags.time)
-    end
   end
 
   def gpio_init
@@ -75,14 +61,11 @@ class GpdFan < Admiral::Command
   end
 
   def speed(val)
-    val = SPEED[flags.speed]
-    set_fan(val[0], val[1])
-  end
-
-  def set_fan(a,b)
-    File.write(@@gpio[0], a)
-    File.write(@@gpio[1], b)
-    @@logger.debug "GPIO [397 => #{a}, 398 => #{b}]"
+    @@logger.info "#{val} speed" unless val == "off"
+    val = SPEED[val]
+    File.write(@@gpio[0], val[0])
+    File.write(@@gpio[1], val[1])
+    @@logger.debug "GPIO [397 => #{val[0]}, 398 => #{val[1]}]"
   end
 
   def turbo(state)
@@ -90,25 +73,34 @@ class GpdFan < Admiral::Command
     @@logger.debug "Turbo is #{state}"
   end
 
+  def daemon
+    if flags.feedback
+      @@logger.info "nozzle check..."
+      speed("min")
+      sleep(3)
+    end
+    while true
+      regulate
+      sleep(flags.time)
+    end
+  end
+
   def regulate
     temp = @@inputs.map { |i| File.read(i).to_i32 / 1000 }.max
     @@logger.debug "CPU: #{temp}C"
     case temp
     when .>= flags.max
-      set_fan(1,1)
-      @@logger.info "Set MAX"
+      speed("max")
     when .>= flags.med
-      set_fan(0,1)
-      @@logger.info "Set MED"
+      speed("med")
     when .>= flags.min
-      set_fan(1,0)
-      @@logger.info "Set MIN"
+      speed("min")
     when .>= flags.turbo
       turbo(0)
       @@logger.info "TURBO off"
     else
       turbo(1)
-      set_fan(0,0)
+      speed("off")
     end
   end
 end
