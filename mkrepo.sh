@@ -17,7 +17,7 @@ REPONAME="njkli"
 REPODIR="/opt/${REPONAME}/gpd-pocket/$(uname -m)"
 
 [[ ! -d $REPODIR ]] && sudo mkdir -p $REPODIR
-sudo chown --recursive $UID:$GID $REPODIR
+sudo chown --recursive $UID $REPODIR
 
 _dkr() {
     TEMP_MOUNT="${PWD}/njkli-repo:/usr/local/bin/njkli-repo"
