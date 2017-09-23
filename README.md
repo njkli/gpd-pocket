@@ -1,5 +1,6 @@
 ![GPD Pocket](https://raw.githubusercontent.com/njkli/gpd-pocket/master/imgs/pocket_arch.png "Yay Gimp!") Made possible by [Hans de Goede](https://github.com/jwrdegoede/linux-sunxi) and [cawilliamson](https://github.com/cawilliamson/ansible-gpdpocket)
-Publicity by [Josh Skidmore](https://github.com/joshskidmore)
+
+* Publicity by [Josh Skidmore](https://github.com/joshskidmore)
 
 # njkli/gpd-pocket
 * In hopes of 4.15 having ootb support, here's a bit of a quick-fix(TM) - because why pollute AUR?
