@@ -17,7 +17,10 @@ REPONAME="njkli"
 REPODIR="/opt/${REPONAME}/gpd-pocket/$(uname -m)"
 
 [[ ! -d $REPODIR ]] && sudo mkdir -p $REPODIR
+mkdir -p /tmp/{build,yaourt}
+
 sudo chown --recursive $UID $REPODIR
+sudo chown --recursive $UID /tmp/{build,yaourt}
 
 _dkr() {
     TEMP_MOUNT="${PWD}/njkli-repo:/usr/local/bin/njkli-repo"
@@ -27,16 +30,16 @@ _dkr() {
 
     vol_build="/tmp/build:/tmp/makepkg"
     vol_yaourt="/tmp/yaourt:/home/dev/tmp/yaourt"
-    vol_pkginst="/opt/njkli/archlinux/$(uname -m):/home/dev/install"
+    vol_pkginst="${REPODIR}:/home/dev/install"
     vol_gpg="$HOME/.gnupg:/home/dev/.gnupg:rw"
-    dkr_volumes="-v ${vol_build} -v ${vol_yaourt} -v ${vol_pkgdir} -v ${vol_pkginst} -v ${vol_gpg} -v ${TEMP_MOUNT}"
+    dkr_volumes="-v ${vol_build} -v ${vol_yaourt} -v ${vol_pkgdir} -v ${vol_pkginst}"
     dkr_img="njkli/makepkg"
     dkr_opts="--rm -ti --name makepkg"
 
     # refresh the image
     export refreshed=$(docker pull $dkr_img)
 
-    DKR="docker run ${dkr_opts} ${dkr_volumes} ${dkr_img} /usr/local/bin/njkli-repo"
+    DKR="docker run ${dkr_opts} ${dkr_volumes} ${dkr_img}"
     echo $DKR
 }
 

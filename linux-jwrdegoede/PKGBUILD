@@ -5,13 +5,9 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 # Maintainer: Thomas Baechler <thomas@archlinux.org>
 
-# url="https://raw.githubusercontent.com/jwrdegoede/linux-sunxi/master/Makefile"
-# readarray _pkgver <<< "$(curl $url | head -n4 | awk -F'=' '{print $2}' | sed 's/ //g')"
-
 pkgbase=linux-jwrdegoede
 _srcname=linux-sunxi-master
 pkgver=git
-#4.13rc5
 pkgrel=1
 arch=('x86_64')
 url="https://www.kernel.org/"
@@ -79,6 +75,12 @@ build() {
   cd "${srcdir}/${_srcname}"
 
   make ${MAKEFLAGS} LOCALVERSION= bzImage modules
+}
+
+pkgver() {
+  url="https://raw.githubusercontent.com/jwrdegoede/linux-sunxi/master/Makefile"
+  local ver=($(curl -fssL $url | head -n4 | awk -F'=' '{print $2}' | sed 's/ //g'))
+  printf "%s" "${ver[0]}.${ver[1]}.${ver[2]}${ver[3]}"
 }
 
 _package() {
