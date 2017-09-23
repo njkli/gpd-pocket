@@ -14,7 +14,10 @@ note(){
 # Colored makepkg-like functions
 
 REPONAME="njkli"
-REPODIR="/opt/${REPONAME}/archlinux/$(uname -m)"
+REPODIR="/opt/${REPONAME}/gpd-pocket/$(uname -m)"
+
+[[ ! -d $REPODIR ]] && sudo mkdir -p $REPODIR
+sudo chown --recursive $UID:$GID $REPODIR
 
 _dkr() {
     TEMP_MOUNT="${PWD}/njkli-repo:/usr/local/bin/njkli-repo"
