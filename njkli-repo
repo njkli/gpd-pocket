@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+REPODIR="/home/dev/install"
+REPONAME="localbuild"
+
+_add_local_repo() {
+    repo-add $REPODIR/$REPONAME.db.tar.gz $REPODIR/*.pkg.tar.xz
+    cat >> /etc/pacman.conf << EOL
+[$REPONAME]
+Server = file://$REPODIR
+EOL
+}
+
+pkg_dir="/home/dev/pkg"
+
+cp --recursive "${pkg_dir}" /tmp
+chown --recursive dev:users /tmp/pkg
+
+[[ $(find /home/dev/install -name *.pkg.tar.xz) ]] && _add_local_repo
+
+runuser -l dev -c "yaourt -Syyu --aur --noconfirm"
+runuser -l dev -c 'cd /tmp/pkg && makepkg -s -f --noconfirm'
+
+# {,.sig}
+cp /tmp/pkg/*.pkg.tar.xz ${pkg_dir}
+chown dev:users ${pkg_dir}/*.pkg.tar.xz
+
+rm -rf $REPODIR/$REPONAME.{db,files}{,.tar.gz}

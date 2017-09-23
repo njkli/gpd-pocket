@@ -1,0 +1,57 @@
+# -*- shell-script -*-
+# Colored makepkg-like functions
+all_off="$(tput sgr0)"
+bold="${all_off}$(tput bold)"
+blue="${bold}$(tput setaf 4)"
+yellow="${bold}$(tput setaf 3)"
+
+msg_blue() {
+    printf "${blue}==>${bold} $1${all_off}\n"
+}
+
+note() {
+    printf "${blue}==>${yellow} NOTE:${bold} $1${all_off}\n"
+}
+
+_defaut_pa() {
+    local scp="set-card-profile alsa_card.platform-cht-bsw-rt5645 HiFi"
+    local sds="set-default-sink alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink"
+    local ssp="set-sink-port alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink [Out] Speaker"
+    local lines=("$scp" "$sds" "$ssp")
+    local cfg="/etc/pulse/default.pa"
+
+    for i in "${lines[@]}"; do
+        [[ ! $(grep -F "${i}" $cfg) ]] && echo "${i}" >> $cfg || msg_blue "Line found in $cfg: (${i}) skipping..."
+    done
+
+    local rts="realtime-scheduling = no"
+    local pd_conf="/etc/pulse/daemon.conf"
+
+    [[ ! $(grep "^${rts}$" $pd_conf) ]] && echo "${rts}" >> $pd_conf || msg_blue "Line found in $pd_conf: (${rts}) skipping..."
+}
+
+_update() {
+    msg_blue "Adjusting PulseAudio config..."
+    _default_pa
+
+
+    flashrom_msg=$(cat <<'EOVAR'
+You should probably update your BIOS!
+cd /etc/gpd/bios
+sudo flashrom -p internal -w Rom_8MB_Tablet.bin
+EOVAR
+)
+    note "$flashrom_msg"
+}
+
+post_install() {
+    _update
+}
+
+post_upgrade() {
+    _update
+}
+
+post_remove() {
+    note "This pkg might've left artifacts on your system..."
+}

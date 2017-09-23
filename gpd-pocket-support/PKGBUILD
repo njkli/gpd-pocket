@@ -1,0 +1,66 @@
+# Maintainer:  <voobscout@archlinux.info>
+
+pkgname=gpd-pocket-support
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="GPD Pocket - Support package"
+arch=('x86_64')
+url="https://github.com/njkli/gpd-pocket"
+license=('MIT')
+depends=(gpd-fan pulseaudio flashrom systemd linux-jwrdegoede)
+provides=(gpd-pocket-support)
+install=gpd-pocket-support.install
+source=('Rom_8MB_Tablet.bin'
+        '20-intel.conf'
+        '30-monitor.conf'
+        '40-touchscreen.conf'
+        'brcmfmac4356-pcie.txt'
+        'chtrt5645.conf'
+        'brcmfmac4356-pcie.bin'
+        'HiFi.conf')
+sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
+            '31d9f93b16d928c9f207fe4f86c6eff8d111dbd8928cb57a8d99474fcac55a0e'
+            'be089fdf8b6aded4dcc60ed181aa195676857b77e6f36d4ea8c8fa2d935db87c'
+            '52fb2c7472d13dabf0d374ea4a98e7e6e64b2918c7c0bc6d856e4288ab7feb08'
+            '8d0a38da2a2ae5db1f4b1835df1d8653554fc3ccead13e2b98fad7ee76732d5d'
+            '9decde079f0078da3a5c57e9459c14691083f57d90b4388f9d242e00bf7973d7'
+            '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf'
+            'ad87f57bbf0f8a6850a654c6df78130468063bfff4864c0d3eec8c76687417c9')
+package() {
+  # /$pkgname-$pkgver
+  cd "$srcdir"
+
+  # Install BIOS blob
+  mkdir -p $pkgdir/etc/gpd/bios
+  install -Dm0644 Rom_8MB_Tablet.bin $pkgdir/etc/gpd/bios/Rom_8MB_Tablet.bin
+
+  # Install WiFi driver variables and firmware
+  local brcm_dir=$pkgdir/lib/firmware/brcm
+  mkdir -p $brcm_dir
+
+  install -Dm0644 brcmfmac4356-pcie.txt $brcm_dir/brcmfmac4356-pcie.txt
+  install -Dm0644 brcmfmac4356-pcie.bin $brcm_dir/brcmfmac4356-pcie.bin
+
+  # Enable usb BT support
+  local modules_load_d=$pkgdir/etc/modules-load.d
+  mkdir -p $modules_load_d
+
+  echo 'btusb' > $modules_load_d/btusb.conf
+
+  # Adjust xorg configs
+  local xorg_conf_d=$pkgdir/etc/X11/xorg.conf.d
+  mkdir -p $xorg_conf_d
+
+  install -Dm0644 20-intel.conf $xorg_conf_d/20-intel.conf
+  install -Dm0644 30-monitor.conf $xorg_conf_d/30-monitor.conf
+  install -Dm0644 40-touchscreen.conf $xorg_conf_d/40-touchscreen.conf
+
+  # Install sound configs
+  local ucm_dir=$pkgdir/usr/share/alsa/ucm/chtrt5645
+  mkdir -p $ucm_dir
+
+  install -Dm0644 chtrt5645.conf $ucm_dir/chtrt5645.conf
+  install -Dm0644 HiFi.conf $ucm_dir/HiFi.conf
+}
+
+# vim:set ts=2 sw=2 et:
