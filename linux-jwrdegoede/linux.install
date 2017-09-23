@@ -1,3 +1,4 @@
+# -*- shell-script -*-
 post_install () {
   # updating module dependencies
   echo ">>> Updating module dependencies. Please wait ..."
