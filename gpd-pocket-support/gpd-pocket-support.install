@@ -14,7 +14,7 @@ note() {
     printf "${blue}==>${yellow} NOTE:${bold} $1${all_off}\n"
 }
 
-_defaut_pa() {
+_default_pa() {
     local scp="set-card-profile alsa_card.platform-cht-bsw-rt5645 HiFi"
     local sds="set-default-sink alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink"
     local ssp="set-sink-port alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink [Out] Speaker"
@@ -34,7 +34,6 @@ _defaut_pa() {
 _update() {
     msg_blue "Adjusting PulseAudio config..."
     _default_pa
-
 
     flashrom_msg=$(cat <<'EOVAR'
 You should probably update your BIOS!
