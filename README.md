@@ -1,4 +1,5 @@
 ![GPD Pocket](https://raw.githubusercontent.com/njkli/gpd-pocket/master/imgs/pocket_arch.png "Yay Gimp!")
+
 * Made possible by [Hans de Goede](https://github.com/jwrdegoede/linux-sunxi) and [cawilliamson](https://github.com/cawilliamson/ansible-gpdpocket)
 * Publicity by [Josh Skidmore](https://github.com/joshskidmore)
 * [ArchLinux wiki page](https://wiki.archlinux.org/index.php/GPD_Pocket) by [Kye W. Shi](https://github.com/kwshi)
@@ -7,6 +8,7 @@
 * In hopes of 4.15 having ootb support, here's a bit of a quick-fix(TM) - because why pollute AUR?
 * The intent is to obsolete this repo ASAP!
 * USE AT YOUR OWN RISK - read the sources and decide if it's your cup'o'tea
+* [My rant/review](https://github.com/njkli/gpd-pocket/blob/master/rant.md) of this device
 
 ## Install
 ```
@@ -62,3 +64,7 @@ While [Official Arch install docu](https://wiki.archlinux.org/index.php/Installa
 ## TODO:
 * Integrate [touchegg](https://github.com/JoseExposito/touchegg)
 * properly merge config.x86_64 into Hans's .config
+
+## FIXME:
+* alsa-lib installs it's own /usr/share/alsa/ucm/chtrt5645 and it conflicts with our copies.
+* Will someone knowledgeable in PKGBUILD please give a pointer, as to how to reconcile the above discrepancy!
