@@ -1,5 +1,6 @@
 # -*- shell-script -*-
 # Colored makepkg-like functions
+ucm_dir="/usr/share/alsa/ucm/chtrt5645"
 all_off="$(tput sgr0)"
 bold="${all_off}$(tput bold)"
 blue="${bold}$(tput setaf 4)"
@@ -54,4 +55,12 @@ post_upgrade() {
 
 post_remove() {
     note "This pkg might've left artifacts on your system..."
+
+    mv $ucm_dir/chtrt5645.conf.orig $ucm_dir/chtrt5645.conf
+    mv $ucm_dir/HiFi.conf.orig $ucm_dir/HiFi.conf
+}
+
+pre_install() {
+    mv $ucm_dir/chtrt5645.conf $ucm_dir/chtrt5645.conf.orig
+    mv $ucm_dir/HiFi.conf $ucm_dir/HiFi.conf.orig
 }

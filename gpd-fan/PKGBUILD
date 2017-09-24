@@ -16,7 +16,7 @@ source=("${pkgname}::git://github.com/njkli/gpd-fan.git")
 sha256sums=('SKIP')
 
 pkgver() {
-  printf "v%s" "$(grep define_version ${srcdir}/${pkgname}/gpd-fan.cr | awk '{print $2}' | sed 's/\"//g')"
+  printf "%s" "$(grep define_version ${srcdir}/${pkgname}/gpd-fan.cr | awk '{print $2}' | sed 's/\"//g')"
 }
 
 build() {

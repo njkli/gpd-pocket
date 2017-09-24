@@ -13,8 +13,8 @@ note(){
 }
 # Colored makepkg-like functions
 
-REPONAME="njkli"
-REPODIR="/opt/${REPONAME}/gpd-pocket/$(uname -m)"
+REPONAME="gpd-pocket"
+REPODIR="/opt/njkli/${REPONAME}/$(uname -m)"
 
 [[ ! -d $REPODIR ]] && sudo mkdir -p $REPODIR
 mkdir -p /tmp/{build,yaourt}
@@ -86,13 +86,13 @@ _mkrepo() {
     _mkclean
     _sign_pkgs
 
-    msg_blue "repo-add --sign $REPODIR/$reponame.db.tar.gz $REPODIR/*.pkg.tar.xz"
+    msg_blue "repo-add --sign $REPODIR/$REPONAME.db.tar.gz $REPODIR/*.pkg.tar.xz"
     repo-add --sign $REPODIR/$REPONAME.db.tar.gz $REPODIR/*.pkg.tar.xz
 
     find $REPODIR -type l -delete
     for i in ${ext[@]}
     do
-        msg_blue "mv $REPODIR/$reponame.$i.tar.gz $REPODIR/$reponame.$i"
+        msg_blue "mv $REPODIR/$REPONAME.$i.tar.gz $REPODIR/$REPONAME.$i"
         mv $REPODIR/$REPONAME.$i.tar.gz $REPODIR/$REPONAME.$i
 
         msg_blue "mv $REPODIR/$REPONAME.$i.tar.gz.sig $REPODIR/$REPONAME.$i.sig"

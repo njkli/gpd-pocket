@@ -5,6 +5,11 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 # Maintainer: Thomas Baechler <thomas@archlinux.org>
 
+
+# usb-storage
+# ERROR: module not found: `usbhid'
+# ERROR: module not found: `sd_mod'
+
 pkgbase=linux-jwrdegoede
 _srcname=linux-sunxi-master
 pkgver=git

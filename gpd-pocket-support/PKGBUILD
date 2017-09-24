@@ -35,7 +35,7 @@ package() {
   install -Dm0644 Rom_8MB_Tablet.bin $pkgdir/etc/gpd/bios/Rom_8MB_Tablet.bin
 
   # Install WiFi driver variables and firmware
-  local brcm_dir=$pkgdir/lib/firmware/brcm
+  local brcm_dir=$pkgdir/usr/lib/firmware/brcm
   mkdir -p $brcm_dir
 
   install -Dm0644 brcmfmac4356-pcie.txt $brcm_dir/brcmfmac4356-pcie.txt
