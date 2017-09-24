@@ -39,7 +39,8 @@ package() {
   mkdir -p $brcm_dir
 
   install -Dm0644 brcmfmac4356-pcie.txt $brcm_dir/brcmfmac4356-pcie.txt
-  install -Dm0644 brcmfmac4356-pcie.bin $brcm_dir/brcmfmac4356-pcie.bin
+  # linux-firmware package provides a newer version:
+  # install -Dm0644 brcmfmac4356-pcie.bin $brcm_dir/brcmfmac4356-pcie.bin
 
   # Enable usb BT support
   local modules_load_d=$pkgdir/etc/modules-load.d

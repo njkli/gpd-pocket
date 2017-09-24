@@ -8,23 +8,6 @@
 * The intent is to obsolete this repo ASAP!
 * USE AT YOUR OWN RISK - read the sources and decide if it's your cup'o'tea
 
-## Features/Bugs:
-* systemd-boot (EFI 64bit = grub is extraneous)
-* ELF 64-bit LSB executable gpd-fan daemon
-* [GPD "ubuntu" BIOS](http://www.gpd.hk/news.asp?id=1519&selectclassid=002002)
-  ```
-  sha256sum Rom_8MB_Tablet.bin
-  # 7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e  Rom_8MB_Tablet.bin
-  ```
-* xkb fixes - del/backspace
-* xorg.conf.d/ goodies for touchscreen/orientation
-* pulseaudio
-* wifi/bt
-
-## Comments
-[arch-anywhere / Anarchy Linux](https://arch-anywhere.org/) is worth checking out if painless Arch install is the goal.
-While [Official Arch install docu](https://wiki.archlinux.org/index.php/Installation_guide) provides more in-depth details, it isn't the quickest way of doing things.
-
 ## Install
 ```
 # install the keyring
@@ -50,8 +33,26 @@ Server = https://github.com/njkli/\$repo/releases/download/\$arch
 EOL
 '
 
-sudo pacman -Syyu gpd-pocket-support
+# --force is required to overwrite alsa ucm profiles
+sudo pacman -Syyu --force gpd-pocket-support
 ```
+
+## Features/Bugs:
+* systemd-boot (EFI 64bit = grub is extraneous)
+* ELF 64-bit LSB executable gpd-fan daemon
+* [GPD "ubuntu" BIOS](http://www.gpd.hk/news.asp?id=1519&selectclassid=002002)
+  ```
+  sha256sum Rom_8MB_Tablet.bin
+  # 7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e  Rom_8MB_Tablet.bin
+  ```
+* xkb fixes - del/backspace
+* xorg.conf.d/ goodies for touchscreen/orientation
+* pulseaudio
+* wifi/bt
+
+## Comments
+[arch-anywhere / Anarchy Linux](https://arch-anywhere.org/) is worth checking out if painless Arch install is the goal.
+While [Official Arch install docu](https://wiki.archlinux.org/index.php/Installation_guide) provides more in-depth details, it isn't the quickest way of doing things.
 
 ## Packages
 * gpd-fan
