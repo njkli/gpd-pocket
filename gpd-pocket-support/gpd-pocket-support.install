@@ -31,16 +31,38 @@ _default_pa() {
     [[ ! $(grep "^${rts}$" $pd_conf) ]] && echo "${rts}" >> $pd_conf || msg_blue "Line found in $pd_conf: (${rts}) skipping..."
 }
 
+_bootctl() {
+    local boot_loader_msg=$(cat <<'EOS'
+You should probably update/install systemd-boot loader like so:
+partuuid=$(blkid | grep mmcblk0p2 | awk -F'=' '{print $5}' | sed 's/"//g')
+cat > /boot/loader/entries/linux-jwrdegoede.conf <<EOR
+title   Arch Linux - jwrdegoede (https://github.com/jwrdegoede/linux-sunxi)
+linux   /vmlinuz-linux-jwrdegoede
+initrd  /intel-ucode.img
+initrd  /initramfs-linux-jwrdegoede.img
+options root=PARTUUID=$partuuid i915.fastboot=1 i915.semaphores=1 fbcon=rotate:1 rw quiet
+EOR
+
+cat > /boot/loader/loader.conf <<EOR
+timeout 0
+default linux-jwrdegoede
+EOR
+
+EOS
+          )
+    note "$boot_loader_msg"
+}
+
 _update() {
     msg_blue "Adjusting PulseAudio config..."
     _default_pa
 
-    flashrom_msg=$(cat <<'EOVAR'
+    local flashrom_msg=$(cat <<'EOS'
 You should probably update your BIOS!
 cd /etc/gpd/bios
 sudo flashrom -p internal -w Rom_8MB_Tablet.bin
-EOVAR
-)
+EOS
+          )
     note "$flashrom_msg"
 }
 
