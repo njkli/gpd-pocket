@@ -2,7 +2,7 @@
 
 pkgname=gpd-pocket-support
 pkgver=0.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="GPD Pocket - Support package"
 arch=('x86_64')
 url="https://github.com/njkli/gpd-pocket"
@@ -20,7 +20,7 @@ source=('Rom_8MB_Tablet.bin'
         'brcmfmac4356-pcie.bin'
         'HiFi.conf')
 sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
-            '31d9f93b16d928c9f207fe4f86c6eff8d111dbd8928cb57a8d99474fcac55a0e'
+            '57ce7c115effa587471c97d5eef7c187e087e4273254eb4a3812b5f4d0cc75b2'
             'be089fdf8b6aded4dcc60ed181aa195676857b77e6f36d4ea8c8fa2d935db87c'
             '52fb2c7472d13dabf0d374ea4a98e7e6e64b2918c7c0bc6d856e4288ab7feb08'
             '94a3df2bcc045b198ef046f828e0ec947f553cca42b723091a3b9ffb359a6d02'
@@ -28,6 +28,7 @@ sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
             '9decde079f0078da3a5c57e9459c14691083f57d90b4388f9d242e00bf7973d7'
             '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf'
             'ad87f57bbf0f8a6850a654c6df78130468063bfff4864c0d3eec8c76687417c9')
+
 package() {
   # /$pkgname-$pkgver
   cd "$srcdir"
