@@ -27,7 +27,7 @@ sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
             '8d0a38da2a2ae5db1f4b1835df1d8653554fc3ccead13e2b98fad7ee76732d5d'
             '9decde079f0078da3a5c57e9459c14691083f57d90b4388f9d242e00bf7973d7'
             '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf'
-            'ad87f57bbf0f8a6850a654c6df78130468063bfff4864c0d3eec8c76687417c9')
+            'cbe3edec58ee0d2cc41f44b351a7bc1f5b77e72c7d57fe4a9adbf80be8a86851')
 
 package() {
   # /$pkgname-$pkgver
