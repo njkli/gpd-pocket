@@ -43,8 +43,10 @@ prepare() {
 
   # Hans's config is already in ./.config, so the next line isnt't needed:
   # cat "${srcdir}/config.${CARCH}" > ./.config
-  # Also, there is no usb storage support, so:
+  # Also, there is no usb storage support AND libertas is needed for mmc booting, so:
   cat >> ./.config << EOL
+CONFIG_LIBERTAS=y
+CONFIG_LIBERTAS_SDIO=y
 CONFIG_BLK_CGROUP=y
 CONFIG_BLK_DEV_INITRD=y
 CONFIG_BLK_SCSI_REQUEST=y
