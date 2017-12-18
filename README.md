@@ -41,7 +41,6 @@ sudo pacman -Syyu --force gpd-pocket-support
 
 ## Features/Bugs:
 * systemd-boot (EFI 64bit = grub is extraneous)
-* ELF 64-bit LSB executable gpd-fan daemon
 * [GPD "ubuntu" BIOS](http://www.gpd.hk/news.asp?id=1519&selectclassid=002002)
   ```
   sha256sum Rom_8MB_Tablet.bin
@@ -57,7 +56,6 @@ sudo pacman -Syyu --force gpd-pocket-support
 While [Official Arch install docu](https://wiki.archlinux.org/index.php/Installation_guide) provides more in-depth details, it isn't the quickest way of doing things.
 
 ## Packages
-* gpd-fan
 * linux-jwrdegoede
 * gpd-pocket-support
 
