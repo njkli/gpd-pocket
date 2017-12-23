@@ -3,7 +3,7 @@
 # Contributor: chrisaw <home@chrisaw.com>
 # Contributor: judd <jvinet@zeroflux.org>
 
-pkgname=alsa-lib-gpdpocket
+pkgname=alsa-lib-gpd-pocket
 pkgver=1.1.5
 pkgrel=1
 pkgdesc="An alternative implementation of Linux sound support WITH GPD Pocket patches"
@@ -16,16 +16,16 @@ provides=("alsa-lib=$pkgver")
 makedepends=('python2')
 license=('LGPL')
 source=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-$pkgver.tar.bz2"
-        'https://fedorapeople.org/~jwrdegoede/chtrt5645/chtrt5645.conf'
-        'https://fedorapeople.org/~jwrdegoede/chtrt5645/HiFi.conf')
+        'chtrt5645.conf'
+        'HiFi.conf')
 md5sums=('a2b465c3a5265d8a57f3ff39c6c4fc29'
-         'SKIP'
-         'SKIP')
+         '471fe244e731c10bb3bbca1386bfd8b5'
+         'bf32180e992a5cd935cd9e7ff2693a68')
 
 prepare() {
   cd "$srcdir/alsa-lib-$pkgver"
-  cp -f ../chtrt5645.conf src/conf/ucm/chtrt5645/chtrt5645.conf
-  cp -f ../HiFi.conf src/conf/ucm/chtrt5645/HiFi.conf
+  install -Dm0644 ../chtrt5645.conf src/conf/ucm/chtrt5645/chtrt5645.conf
+  install -Dm0644 ../HiFi.conf src/conf/ucm/chtrt5645/HiFi.conf
 }
 
 build() {

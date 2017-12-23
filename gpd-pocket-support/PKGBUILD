@@ -7,7 +7,7 @@ pkgdesc="GPD Pocket - Support package"
 arch=('x86_64')
 url="https://github.com/njkli/gpd-pocket"
 license=('MIT')
-depends=(alsa-lib-gpdpocket pulseaudio flashrom systemd linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers intel-ucode)
+depends=(alsa-lib-gpd-pocket flashrom intel-ucode linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers pulseaudio systemd)
 provides=(gpd-pocket-support)
 install=gpd-pocket-support.install
 source=('Rom_8MB_Tablet.bin'
@@ -18,10 +18,10 @@ source=('Rom_8MB_Tablet.bin'
         'brcmfmac4356-pcie.txt'
         'brcmfmac4356-pcie.bin')
 sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
-            '57ce7c115effa587471c97d5eef7c187e087e4273254eb4a3812b5f4d0cc75b2'
+            'f8dd7c53d37cb4788843e820fd1b3dc682035e3e813710316fe1af29fef7d7a9'
             'be089fdf8b6aded4dcc60ed181aa195676857b77e6f36d4ea8c8fa2d935db87c'
-            '52fb2c7472d13dabf0d374ea4a98e7e6e64b2918c7c0bc6d856e4288ab7feb08'
-            '94a3df2bcc045b198ef046f828e0ec947f553cca42b723091a3b9ffb359a6d02'
+            'c044a6d291c246100b5bb17b921c0c2083124366a02bfd1db6a086e3e6da6819'
+            '9cc7a4d44aa7fe872b090e41b1207a557bf479d5560d5fdbc924cb9832d27acf'
             '8d0a38da2a2ae5db1f4b1835df1d8653554fc3ccead13e2b98fad7ee76732d5d'
             '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf')
 

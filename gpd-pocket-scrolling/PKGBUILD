@@ -1,0 +1,25 @@
+# $Id$
+# Maintainer:  <voobscout@archlinux.info>
+# Contributor: chrisaw <home@chrisaw.com>
+# Contributor: judd <jvinet@zeroflux.org>
+
+pkgname=scrolling-gpd-pocket
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Enables scrolling emulation for GPD Pocket in Xorg"
+arch=('x86_64')
+url="https://github.com/njkli/gpd-pocket"
+provides=(scrolling-gpd-pocket)
+license=('LGPL')
+source=('51-trackpoint-scrolling.conf')
+sha256sums =('bcc44899267a610babf04efcf0314686a3f8ca9ac7848bb25638c97749847882')
+
+package() {
+  cd "$srcdir"
+  
+  # Adjust xorg configs
+  local xorg_conf_d=$pkgdir/etc/X11/xorg.conf.d
+  mkdir -p $xorg_conf_d
+  
+  install -Dm0644 51-trackpoint-scrolling.conf $xorg_conf_d/51-trackpoint-scrolling.conf
+}
