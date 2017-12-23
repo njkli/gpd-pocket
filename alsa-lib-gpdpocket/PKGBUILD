@@ -23,20 +23,18 @@ md5sums=('a2b465c3a5265d8a57f3ff39c6c4fc29'
          'SKIP')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
-  
-  # replace ucm files with GPD Pocket patched files
+  cd "$srcdir/alsa-lib-$pkgver"
   cp -f ../chtrt5645.conf src/conf/ucm/chtrt5645/chtrt5645.co nf
   cp -f ../HiFi.conf src/conf/ucm/chtrt5645/HiFi.conf
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/alsa-lib-$pkgver"
   ./configure --without-debug --prefix=/usr --with-pythonlibs="-lpthread -lm -ldl -lpython2.7" --with-pythonincludes=-I/usr/include/python2.7
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/alsa-lib-$pkgver"
   make DESTDIR="$pkgdir" install
 }
