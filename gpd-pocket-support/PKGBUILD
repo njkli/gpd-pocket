@@ -7,7 +7,7 @@ pkgdesc="GPD Pocket - Support package"
 arch=('x86_64')
 url="https://github.com/njkli/gpd-pocket"
 license=('MIT')
-depends=(pulseaudio flashrom systemd linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers intel-ucode)
+depends=(alsa-lib-gpdpocket pulseaudio flashrom systemd linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers intel-ucode)
 provides=(gpd-pocket-support)
 install=gpd-pocket-support.install
 source=('Rom_8MB_Tablet.bin'
@@ -16,18 +16,14 @@ source=('Rom_8MB_Tablet.bin'
         '40-touchscreen.conf'
         '50-trackpoint.conf'
         'brcmfmac4356-pcie.txt'
-        'chtrt5645.conf'
-        'brcmfmac4356-pcie.bin'
-        'HiFi.conf')
+        'brcmfmac4356-pcie.bin')
 sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
             '57ce7c115effa587471c97d5eef7c187e087e4273254eb4a3812b5f4d0cc75b2'
             'be089fdf8b6aded4dcc60ed181aa195676857b77e6f36d4ea8c8fa2d935db87c'
             '52fb2c7472d13dabf0d374ea4a98e7e6e64b2918c7c0bc6d856e4288ab7feb08'
             '94a3df2bcc045b198ef046f828e0ec947f553cca42b723091a3b9ffb359a6d02'
             '8d0a38da2a2ae5db1f4b1835df1d8653554fc3ccead13e2b98fad7ee76732d5d'
-            '9decde079f0078da3a5c57e9459c14691083f57d90b4388f9d242e00bf7973d7'
-            '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf'
-            'cbe3edec58ee0d2cc41f44b351a7bc1f5b77e72c7d57fe4a9adbf80be8a86851')
+            '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf')
 
 package() {
   # /$pkgname-$pkgver
@@ -60,13 +56,6 @@ package() {
   install -Dm0644 30-monitor.conf $xorg_conf_d/30-monitor.conf
   install -Dm0644 40-touchscreen.conf $xorg_conf_d/40-touchscreen.conf
   install -Dm0644 50-trackpoint.conf $xorg_conf_d/50-trackpoint.conf
-
-  # Install sound configs
-  local ucm_dir=$pkgdir/usr/share/alsa/ucm/chtrt5645
-  mkdir -p $ucm_dir
-
-  install -Dm0644 chtrt5645.conf $ucm_dir/chtrt5645.conf
-  install -Dm0644 HiFi.conf $ucm_dir/HiFi.conf
 }
 
 # vim:set ts=2 sw=2 et:
