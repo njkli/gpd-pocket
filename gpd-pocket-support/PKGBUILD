@@ -1,4 +1,5 @@
 # Maintainer:  <voobscout@archlinux.info>
+# Contributor: chrisaw <home@chrisaw.com>
 
 pkgname=gpd-pocket-support
 pkgver=0.1.1
