@@ -12,26 +12,26 @@ url="http://www.alsa-project.org"
 depends=('glibc')
 optdepends=('python2: for python smixer plugin')
 conflicts=('alsa-lib')
-provides=("alsa-lib=$pkgver")
+provides=("alsa-lib=${pkgver}")
 makedepends=('python2')
 license=('LGPL')
-source=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-$pkgver.tar.bz2"
+source=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-${pkgver}.tar.bz2"
         'gpd-pocket.patch')
 md5sums=('a2b465c3a5265d8a57f3ff39c6c4fc29'
          'a37cfa1f95d7f0fc03797705b08259dd')
 
 prepare() {
-  cd "$srcdir/alsa-lib-$pkgver"
+  cd "${srcdir}/alsa-lib-${pkgver}"
   patch -Np1 -i "${srcdir}/gpd-pocket.patch"
 }
 
 build() {
-  cd "$srcdir/alsa-lib-$pkgver"
+  cd "${srcdir}/alsa-lib-${pkgver}"
   ./configure --without-debug --prefix=/usr --with-pythonlibs="-lpthread -lm -ldl -lpython2.7" --with-pythonincludes=-I/usr/include/python2.7
   make
 }
 
 package() {
-  cd "$srcdir/alsa-lib-$pkgver"
-  make DESTDIR="$pkgdir" install
+  cd "${srcdir}/alsa-lib-${pkgver}"
+  make DESTDIR="${pkgdir}" install
 }
