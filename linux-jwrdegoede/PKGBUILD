@@ -262,7 +262,7 @@ build() {
 pkgver() {
   url="https://raw.githubusercontent.com/jwrdegoede/linux-sunxi/master/Makefile"
   local ver=($(curl -fssL $url | head -n5 | awk -F'=' '{print $2}' | sed 's/ //g'))
-  `printf "%s" "${ver[0]}.${ver[1]}.${ver[2]}-${ver[3]/-rc/}"`
+  printf "%s" "${ver[0]}.${ver[1]}.${ver[2]}-${ver[3]/-rc/}"
 }
 
 _package() {
