@@ -11,45 +11,40 @@ license=('MIT')
 depends=(alsa-lib-gpd-pocket flashrom intel-ucode linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers pulseaudio systemd)
 provides=(gpd-pocket-support)
 install=gpd-pocket-support.install
-source=('Rom_8MB_Tablet.bin'
-        '20-intel.conf'
+source=('20-intel.conf'
         '30-monitor.conf'
         '40-touchscreen.conf'
         '50-trackpoint.conf'
         'brcmfmac4356-pcie.txt'
-        'brcmfmac4356-pcie.bin')
-sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
-            'f8dd7c53d37cb4788843e820fd1b3dc682035e3e813710316fe1af29fef7d7a9'
+        'Rom_8MB_Tablet.bin')
+sha256sums=('f8dd7c53d37cb4788843e820fd1b3dc682035e3e813710316fe1af29fef7d7a9'
             'be089fdf8b6aded4dcc60ed181aa195676857b77e6f36d4ea8c8fa2d935db87c'
             'c044a6d291c246100b5bb17b921c0c2083124366a02bfd1db6a086e3e6da6819'
             '9cc7a4d44aa7fe872b090e41b1207a557bf479d5560d5fdbc924cb9832d27acf'
             '8d0a38da2a2ae5db1f4b1835df1d8653554fc3ccead13e2b98fad7ee76732d5d'
-            '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf')
+            '7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e')
 
 package() {
   cd "${srcdir}"
 
-  # Install BIOS blob
+  # set xorg configs
+  mkdir -p ${pkgdir}/etc/X11/xorg.conf.d
+  install -Dm0644 20-intel.conf ${pkgdir}/etc/X11/xorg.conf.d/20-intel.conf
+  install -Dm0644 30-monitor.conf ${pkgdir}/etc/X11/xorg.conf.d/30-monitor.conf
+  install -Dm0644 40-touchscreen.conf ${pkgdir}/etc/X11/xorg.conf.d/40-touchscreen.conf
+  install -Dm0644 50-trackpoint.conf ${pkgdir}/etc/X11/xorg.conf.d/50-trackpoint.conf
+
+  # install wifi driver variables
+  mkdir -p ${pkgdir}/usr/lib/firmware/brcm
+  install -Dm0644 brcmfmac4356-pcie.txt ${pkgdir}/usr/lib/firmware/brcm/brcmfmac4356-pcie.txt
+
+  # enable bluetooth support
+  mkdir -p ${pkgdir}/etc/modules-load.d
+  echo 'btusb' > ${pkgdir}/etc/modules-load.d/btusb.conf
+
+  # install bios blob
   mkdir -p ${pkgdir}/etc/gpd/bios
   install -Dm0644 Rom_8MB_Tablet.bin ${pkgdir}/etc/gpd/bios/Rom_8MB_Tablet.bin
-
-  # Install WiFi driver variables and firmware
-  local brcm_dir=${pkgdir}/usr/lib/firmware/brcm
-  mkdir -p ${brcm_dir}
-  install -Dm0644 brcmfmac4356-pcie.txt ${brcm_dir}/brcmfmac4356-pcie.txt
-
-  # Enable usb BT support
-  local modules_load_d=${pkgdir}/etc/modules-load.d
-  mkdir -p ${modules_load_d}
-  echo 'btusb' > ${modules_load_d}/btusb.conf
-
-  # Adjust xorg configs
-  local xorg_conf_d=${pkgdir}/etc/X11/xorg.conf.d
-  mkdir -p ${xorg_conf_d}
-  install -Dm0644 20-intel.conf ${xorg_conf_d}/20-intel.conf
-  install -Dm0644 30-monitor.conf ${xorg_conf_d}/30-monitor.conf
-  install -Dm0644 40-touchscreen.conf ${xorg_conf_d}/40-touchscreen.conf
-  install -Dm0644 50-trackpoint.conf ${xorg_conf_d}/50-trackpoint.conf
 }
 
 # vim:set ts=2 sw=2 et:
