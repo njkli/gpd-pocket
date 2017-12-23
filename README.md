@@ -55,8 +55,10 @@ sudo pacman -Syyu gpd-pocket-support
 While [Official Arch install docu](https://wiki.archlinux.org/index.php/Installation_guide) provides more in-depth details, it isn't the quickest way of doing things.
 
 ## Packages
-* linux-jwrdegoede
+* alsa-lib-gpd-pocket
+* gpd-pocket-scrolling
 * gpd-pocket-support
+* linux-jwrdegoede
 
 ## TODO:
 * Integrate [touchegg](https://github.com/JoseExposito/touchegg)
