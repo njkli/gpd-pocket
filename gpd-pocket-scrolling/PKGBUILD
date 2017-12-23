@@ -28,10 +28,10 @@ package() {
   cd "${srcdir}"
   
   # Create necessary directories
-  mkdir -p ${pkgdir}/etc/gpd ${pkgdir}/etc/profile.d ${pkgdir}/etc/X11/xorg.conf.d
+  mkdir -p ${pkgdir}/etc/gpd/scrolling ${pkgdir}/etc/profile.d ${pkgdir}/etc/X11/xorg.conf.d
   
   # Enable Wayland scrolling
-  install -Dm0644 51-trackpoint-scrolling.so ${pkgdir}/etc/gpd/51-trackpoint-scrolling.so
+  install -Dm0644 51-trackpoint-scrolling.so ${pkgdir}/etc/gpd/scrolling/51-trackpoint-scrolling.so
   install -Dm0777 51-trackpoint-scrolling.sh ${pkgdir}/etc/profile.d/51-trackpoint-scrolling.sh
   
   # Enable Xorg scrolling

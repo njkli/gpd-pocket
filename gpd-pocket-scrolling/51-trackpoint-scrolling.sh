@@ -1,2 +1,2 @@
 #!/bin/sh
-export LD_PRELOAD="$LD_PRELOAD /etc/gpd/51-trackpoint-scrolling.so"
+export LD_PRELOAD="$LD_PRELOAD /etc/gpd/scrolling/51-trackpoint-scrolling.so"
