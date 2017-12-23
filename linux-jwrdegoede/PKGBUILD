@@ -14,17 +14,16 @@ url="https://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'libelf')
 options=('!strip')
-# 'git+https://github.com/jwrdegoede/linux-sunxi'
 source=('https://github.com/jwrdegoede/linux-sunxi/archive/master.zip'
         '90-linux.hook'
-        'linux.preset'
-        )
+        'linux.preset')
 
 sha256sums=('SKIP'
             '834bd254b56ab71d73f59b3221f056c72f559553c04718e350ab2a3e2991afe0'
             'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65')
 
-validpgpkeys=('ABAF11C65A2970B130ABE3C479BE3E4300411886' # Linus Torvalds
+validpgpkeys=(
+              'ABAF11C65A2970B130ABE3C479BE3E4300411886' # Linus Torvalds
               '647F28654894E3BD457199BE38DBBDC86092693E' # Greg Kroah-Hartman
              )
 
@@ -262,7 +261,7 @@ build() {
 pkgver() {
   url="https://raw.githubusercontent.com/jwrdegoede/linux-sunxi/master/Makefile"
   local ver=($(curl -fssL $url | head -n5 | awk -F'=' '{print $2}' | sed 's/ //g'))
-  printf "%s" "${ver[0]}.${ver[1]}.${ver[2]}-${ver[3]/-rc/}"
+  printf "%s" "${ver[0]}.${ver[1]}.${ver[2]}${ver[3]/-/}"
 }
 
 _package() {
