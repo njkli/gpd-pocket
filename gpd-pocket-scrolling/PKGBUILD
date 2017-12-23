@@ -2,14 +2,14 @@
 # Maintainer:  <voobscout@archlinux.info>
 # Contributor: chrisaw <home@chrisaw.com>
 
-pkgname=scrolling-gpd-pocket
+pkgname=gpd-pocket-scrolling
 pkgver=0.0.2
 pkgrel=1
 pkgdesc="Enables scrolling emulation for GPD Pocket in Wayland and Xorg"
 arch=('x86_64')
 url="https://github.com/njkli/gpd-pocket"
 makedepends=('gcc' 'libinput')
-provides=(scrolling-gpd-pocket)
+provides=(gpd-pocket-scrolling)
 license=('LGPL')
 source=('https://github.com/PeterCxy/scroll-emulation/archive/master.zip'
         '51-trackpoint-scrolling.conf'
