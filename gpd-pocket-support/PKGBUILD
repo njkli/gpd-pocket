@@ -26,7 +26,6 @@ sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
             '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf')
 
 package() {
-  # /$pkgname-$pkgver
   cd "${srcdir}"
 
   # Install BIOS blob
@@ -36,22 +35,16 @@ package() {
   # Install WiFi driver variables and firmware
   local brcm_dir=${pkgdir}/usr/lib/firmware/brcm
   mkdir -p ${brcm_dir}
-
   install -Dm0644 brcmfmac4356-pcie.txt ${brcm_dir}/brcmfmac4356-pcie.txt
-
-  # linux-firmware package provides a newer version:
-  # install -Dm0644 brcmfmac4356-pcie.bin $brcm_dir/brcmfmac4356-pcie.bin
 
   # Enable usb BT support
   local modules_load_d=${pkgdir}/etc/modules-load.d
   mkdir -p ${modules_load_d}
-
   echo 'btusb' > ${modules_load_d}/btusb.conf
 
   # Adjust xorg configs
   local xorg_conf_d=${pkgdir}/etc/X11/xorg.conf.d
   mkdir -p ${xorg_conf_d}
-
   install -Dm0644 20-intel.conf ${xorg_conf_d}/20-intel.conf
   install -Dm0644 30-monitor.conf ${xorg_conf_d}/30-monitor.conf
   install -Dm0644 40-touchscreen.conf ${xorg_conf_d}/40-touchscreen.conf
