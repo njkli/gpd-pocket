@@ -1,0 +1,40 @@
+# $Id$
+# Maintainer:  <voobscout@archlinux.info>
+# Contributor: chrisaw <home@chrisaw.com>
+# Contributor: judd <jvinet@zeroflux.org>
+
+pkgname=alsa-lib-gpd-pocket
+pkgver=1.1.5
+pkgrel=1
+pkgdesc="An alternative implementation of Linux sound support WITH GPD Pocket patches"
+arch=('x86_64')
+url="http://www.alsa-project.org"
+depends=('glibc')
+optdepends=('python2: for python smixer plugin')
+conflicts=('alsa-lib')
+provides=("alsa-lib=$pkgver")
+makedepends=('python2')
+license=('LGPL')
+source=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-$pkgver.tar.bz2"
+        'chtrt5645.conf'
+        'HiFi.conf')
+md5sums=('a2b465c3a5265d8a57f3ff39c6c4fc29'
+         '471fe244e731c10bb3bbca1386bfd8b5'
+         'bf32180e992a5cd935cd9e7ff2693a68')
+
+prepare() {
+  cd "$srcdir/alsa-lib-$pkgver"
+  install -Dm0644 ../chtrt5645.conf src/conf/ucm/chtrt5645/chtrt5645.conf
+  install -Dm0644 ../HiFi.conf src/conf/ucm/chtrt5645/HiFi.conf
+}
+
+build() {
+  cd "$srcdir/alsa-lib-$pkgver"
+  ./configure --without-debug --prefix=/usr --with-pythonlibs="-lpthread -lm -ldl -lpython2.7" --with-pythonincludes=-I/usr/include/python2.7
+  make
+}
+
+package() {
+  cd "$srcdir/alsa-lib-$pkgver"
+  make DESTDIR="$pkgdir" install
+}
