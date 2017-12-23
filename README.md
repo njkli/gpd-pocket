@@ -62,7 +62,3 @@ While [Official Arch install docu](https://wiki.archlinux.org/index.php/Installa
 ## TODO:
 * Integrate [touchegg](https://github.com/JoseExposito/touchegg)
 * properly merge config.x86_64 into Hans's .config
-
-## FIXME:
-* alsa-lib installs it's own /usr/share/alsa/ucm/chtrt5645 and it conflicts with our copies.
-* Will someone knowledgeable in PKGBUILD please give a pointer, as to how to reconcile the above discrepancy!
