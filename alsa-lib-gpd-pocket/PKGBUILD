@@ -18,7 +18,7 @@ license=('LGPL')
 source=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-${pkgver}.tar.bz2"
         'gpd-pocket.patch')
 md5sums=('a2b465c3a5265d8a57f3ff39c6c4fc29'
-         'a37cfa1f95d7f0fc03797705b08259dd')
+         '7b285a826dd8ea17d8d0992f0566feed')
 
 prepare() {
   cd "${srcdir}/alsa-lib-${pkgver}"
