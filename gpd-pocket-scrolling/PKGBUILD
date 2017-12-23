@@ -1,25 +1,39 @@
 # $Id$
 # Maintainer:  <voobscout@archlinux.info>
 # Contributor: chrisaw <home@chrisaw.com>
-# Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=scrolling-gpd-pocket
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
-pkgdesc="Enables scrolling emulation for GPD Pocket in Xorg"
+pkgdesc="Enables scrolling emulation for GPD Pocket in Wayland and Xorg"
 arch=('x86_64')
 url="https://github.com/njkli/gpd-pocket"
+makedepends=('gcc')
 provides=(scrolling-gpd-pocket)
 license=('LGPL')
-source=('51-trackpoint-scrolling.conf')
-sha256sums=('bcc44899267a610babf04efcf0314686a3f8ca9ac7848bb25638c97749847882')
+source=('https://github.com/PeterCxy/scroll-emulation/archive/master.zip'
+        '51-trackpoint-scrolling.conf'
+        '51-trackpoint-scrolling.sh')
+sha256sums=('SKIP'
+            'bcc44899267a610babf04efcf0314686a3f8ca9ac7848bb25638c97749847882'
+            '03a9fc17191f3c4fb692f96f60c0793493e7b389cd013785f12adeff83ed3eff')
+
+build() {
+  cd "${srcdir}"
+  
+  gcc -shared -ldl -linput -fPIC master/hook.c -o 51-trackpoint-scrolling.so
+}
 
 package() {
-  cd "$srcdir"
+  cd "${srcdir}"
   
-  # Adjust xorg configs
-  local xorg_conf_d=$pkgdir/etc/X11/xorg.conf.d
-  mkdir -p $xorg_conf_d
+  # Create necessary directories
+  mkdir -p /etc/gpd /etc/profile.d /etc/X11/xorg.conf.d
   
-  install -Dm0644 51-trackpoint-scrolling.conf $xorg_conf_d/51-trackpoint-scrolling.conf
+  # Enable Wayland scrolling
+  install -Dm0644 51-trackpoint-scrolling.so /etc/gpd/51-trackpoint-scrolling.so
+  install -Dm0777 51-trackpoint-scrolling.sh /etc/profile.d/51-trackpoint-scrolling.sh
+  
+  # Enable Xorg scrolling
+  install -Dm0644 51-trackpoint-scrolling.conf /etc/X11/xorg.conf.d/51-trackpoint-scrolling.conf
 }

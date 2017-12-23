@@ -27,35 +27,35 @@ sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
 
 package() {
   # /$pkgname-$pkgver
-  cd "$srcdir"
+  cd "${srcdir}"
 
   # Install BIOS blob
-  mkdir -p $pkgdir/etc/gpd/bios
-  install -Dm0644 Rom_8MB_Tablet.bin $pkgdir/etc/gpd/bios/Rom_8MB_Tablet.bin
+  mkdir -p ${pkgdir}/etc/gpd/bios
+  install -Dm0644 Rom_8MB_Tablet.bin ${pkgdir}/etc/gpd/bios/Rom_8MB_Tablet.bin
 
   # Install WiFi driver variables and firmware
-  local brcm_dir=$pkgdir/usr/lib/firmware/brcm
-  mkdir -p $brcm_dir
+  local brcm_dir=${pkgdir}/usr/lib/firmware/brcm
+  mkdir -p ${brcm_dir}
 
-  install -Dm0644 brcmfmac4356-pcie.txt $brcm_dir/brcmfmac4356-pcie.txt
+  install -Dm0644 brcmfmac4356-pcie.txt ${brcm_dir}/brcmfmac4356-pcie.txt
 
   # linux-firmware package provides a newer version:
   # install -Dm0644 brcmfmac4356-pcie.bin $brcm_dir/brcmfmac4356-pcie.bin
 
   # Enable usb BT support
-  local modules_load_d=$pkgdir/etc/modules-load.d
-  mkdir -p $modules_load_d
+  local modules_load_d=${pkgdir}/etc/modules-load.d
+  mkdir -p ${modules_load_d}
 
-  echo 'btusb' > $modules_load_d/btusb.conf
+  echo 'btusb' > ${modules_load_d}/btusb.conf
 
   # Adjust xorg configs
-  local xorg_conf_d=$pkgdir/etc/X11/xorg.conf.d
-  mkdir -p $xorg_conf_d
+  local xorg_conf_d=${pkgdir}/etc/X11/xorg.conf.d
+  mkdir -p ${xorg_conf_d}
 
-  install -Dm0644 20-intel.conf $xorg_conf_d/20-intel.conf
-  install -Dm0644 30-monitor.conf $xorg_conf_d/30-monitor.conf
-  install -Dm0644 40-touchscreen.conf $xorg_conf_d/40-touchscreen.conf
-  install -Dm0644 50-trackpoint.conf $xorg_conf_d/50-trackpoint.conf
+  install -Dm0644 20-intel.conf ${xorg_conf_d}/20-intel.conf
+  install -Dm0644 30-monitor.conf ${xorg_conf_d}/30-monitor.conf
+  install -Dm0644 40-touchscreen.conf ${xorg_conf_d}/40-touchscreen.conf
+  install -Dm0644 50-trackpoint.conf ${xorg_conf_d}/50-trackpoint.conf
 }
 
 # vim:set ts=2 sw=2 et:
