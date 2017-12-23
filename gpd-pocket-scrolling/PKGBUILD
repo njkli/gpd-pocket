@@ -16,7 +16,7 @@ source=('https://github.com/PeterCxy/scroll-emulation/archive/master.zip'
         '51-trackpoint-scrolling.sh')
 sha256sums=('SKIP'
             'bcc44899267a610babf04efcf0314686a3f8ca9ac7848bb25638c97749847882'
-            'bee8e1eab4f2a0fc44c7abea37dede60dca06bf84247862ec7d837b54a72a4fe')
+            '01872e6864797b1fff13fbfeb9c4c2761ef2bb637e47ac234158d014275770cb')
 
 build() {
   cd "${srcdir}"
