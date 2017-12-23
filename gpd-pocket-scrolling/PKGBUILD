@@ -21,7 +21,7 @@ sha256sums=('SKIP'
 build() {
   cd "${srcdir}"
   
-  gcc -shared -ldl -linput -fPIC master/hook.c -o 51-trackpoint-scrolling.so
+  gcc -shared -ldl -linput -fPIC scroll-emulation-master/hook.c -o 51-trackpoint-scrolling.so
 }
 
 package() {
