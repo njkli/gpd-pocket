@@ -16,16 +16,13 @@ provides=("alsa-lib=$pkgver")
 makedepends=('python2')
 license=('LGPL')
 source=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-$pkgver.tar.bz2"
-        'chtrt5645.conf'
-        'HiFi.conf')
+        'gpd-pocket.patch')
 md5sums=('a2b465c3a5265d8a57f3ff39c6c4fc29'
-         '471fe244e731c10bb3bbca1386bfd8b5'
-         'bf32180e992a5cd935cd9e7ff2693a68')
+         'a37cfa1f95d7f0fc03797705b08259dd')
 
 prepare() {
   cd "$srcdir/alsa-lib-$pkgver"
-  install -Dm0644 ../chtrt5645.conf src/conf/ucm/chtrt5645/chtrt5645.conf
-  install -Dm0644 ../HiFi.conf src/conf/ucm/chtrt5645/HiFi.conf
+  patch -Np1 -i "${srcdir}/gpd-pocket.patch"
 }
 
 build() {
