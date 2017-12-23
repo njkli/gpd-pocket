@@ -35,8 +35,7 @@ Server = https://github.com/njkli/\$repo/releases/download/\$arch
 EOL
 '
 
-# --force is required to overwrite alsa ucm profiles
-sudo pacman -Syyu --force gpd-pocket-support
+sudo pacman -Syyu gpd-pocket-support
 ```
 
 ## Features/Bugs:
