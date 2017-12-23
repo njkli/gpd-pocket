@@ -12,7 +12,7 @@ url="https://github.com/njkli/gpd-pocket"
 provides=(scrolling-gpd-pocket)
 license=('LGPL')
 source=('51-trackpoint-scrolling.conf')
-sha256sums =('bcc44899267a610babf04efcf0314686a3f8ca9ac7848bb25638c97749847882')
+sha256sums=('bcc44899267a610babf04efcf0314686a3f8ca9ac7848bb25638c97749847882')
 
 package() {
   cd "$srcdir"
