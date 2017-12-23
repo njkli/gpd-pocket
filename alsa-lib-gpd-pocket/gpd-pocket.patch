@@ -1,5 +1,5 @@
---- HiFi.conf	2017-11-14 07:52:09.000000000 +0000
-+++ /Users/chrisaw/Projects/personal/gpd-pocket/alsa-lib-gpd-pocket/HiFi.conf	2017-12-08 17:44:05.000000000 +0000
+--- src/conf/ucm/chtrt5645/HiFi.conf	2017-11-14 07:52:09.000000000 +0000
++++ src/conf/ucm/chtrt5645/HiFi.conf.gpd-pocket	2017-12-08 17:44:05.000000000 +0000
 @@ -4,58 +4,153 @@
  		TQ "HiFi"
  
