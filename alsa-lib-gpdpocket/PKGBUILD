@@ -15,7 +15,7 @@ conflicts=('alsa-lib')
 provides=("alsa-lib=$pkgver")
 makedepends=('python2')
 license=('LGPL')
-source=('ftp://ftp.alsa-project.org/pub/lib/alsa-lib-$pkgver.tar.bz2'
+source=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-$pkgver.tar.bz2"
         'https://fedorapeople.org/~jwrdegoede/chtrt5645/chtrt5645.conf'
         'https://fedorapeople.org/~jwrdegoede/chtrt5645/HiFi.conf')
 md5sums=('a2b465c3a5265d8a57f3ff39c6c4fc29'
@@ -26,7 +26,7 @@ prepare() {
   cd "$srcdir/$pkgname-$pkgver"
   
   # replace ucm files with GPD Pocket patched files
-  cp -f ../chtrt5645.conf src/conf/ucm/chtrt5645/chtrt5645.conf
+  cp -f ../chtrt5645.conf src/conf/ucm/chtrt5645/chtrt5645.co nf
   cp -f ../HiFi.conf src/conf/ucm/chtrt5645/HiFi.conf
 }
 
