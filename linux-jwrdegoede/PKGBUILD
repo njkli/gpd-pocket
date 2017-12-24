@@ -44,6 +44,8 @@ prepare() {
   # - Building in USB storage support (instead of modules)
   # - Building in libertas + MMC support (instead of modules)
   cat >> ./.config << EOL
+CONFIG_KERNEL_GZIP=n
+CONFIG_KERNEL_LZ4=y
 CONFIG_LIBERTAS=y
 CONFIG_LIBERTAS_SDIO=y
 CONFIG_MMC_SDHCI=y
