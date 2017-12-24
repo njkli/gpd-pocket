@@ -1,4 +1,5 @@
 # Maintainer:  <voobscout@archlinux.info>
+# Contributor: chrisaw <home@chrisaw.com>
 
 pkgname=gpd-pocket-support
 pkgver=0.1.1
@@ -7,66 +8,43 @@ pkgdesc="GPD Pocket - Support package"
 arch=('x86_64')
 url="https://github.com/njkli/gpd-pocket"
 license=('MIT')
-depends=(pulseaudio flashrom systemd linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers intel-ucode)
+depends=(alsa-lib-gpd-pocket flashrom intel-ucode linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers pulseaudio systemd)
 provides=(gpd-pocket-support)
 install=gpd-pocket-support.install
-source=('Rom_8MB_Tablet.bin'
-        '20-intel.conf'
+source=('20-intel.conf'
         '30-monitor.conf'
         '40-touchscreen.conf'
         '50-trackpoint.conf'
         'brcmfmac4356-pcie.txt'
-        'chtrt5645.conf'
-        'brcmfmac4356-pcie.bin'
-        'HiFi.conf')
-sha256sums=('7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
-            '57ce7c115effa587471c97d5eef7c187e087e4273254eb4a3812b5f4d0cc75b2'
+        'Rom_8MB_Tablet.bin')
+sha256sums=('f8dd7c53d37cb4788843e820fd1b3dc682035e3e813710316fe1af29fef7d7a9'
             'be089fdf8b6aded4dcc60ed181aa195676857b77e6f36d4ea8c8fa2d935db87c'
-            '52fb2c7472d13dabf0d374ea4a98e7e6e64b2918c7c0bc6d856e4288ab7feb08'
-            '94a3df2bcc045b198ef046f828e0ec947f553cca42b723091a3b9ffb359a6d02'
+            'c044a6d291c246100b5bb17b921c0c2083124366a02bfd1db6a086e3e6da6819'
+            '9cc7a4d44aa7fe872b090e41b1207a557bf479d5560d5fdbc924cb9832d27acf'
             '8d0a38da2a2ae5db1f4b1835df1d8653554fc3ccead13e2b98fad7ee76732d5d'
-            '9decde079f0078da3a5c57e9459c14691083f57d90b4388f9d242e00bf7973d7'
-            '668d2ddea7a49a7d9c294df91e19d4de3388a467428897de3d18fe92674a6ecf'
-            'cbe3edec58ee0d2cc41f44b351a7bc1f5b77e72c7d57fe4a9adbf80be8a86851')
+            '7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e')
 
 package() {
-  # /$pkgname-$pkgver
-  cd "$srcdir"
+  cd "${srcdir}"
 
-  # Install BIOS blob
-  mkdir -p $pkgdir/etc/gpd/bios
-  install -Dm0644 Rom_8MB_Tablet.bin $pkgdir/etc/gpd/bios/Rom_8MB_Tablet.bin
+  # set xorg configs
+  mkdir -p ${pkgdir}/etc/X11/xorg.conf.d
+  install -Dm0644 20-intel.conf ${pkgdir}/etc/X11/xorg.conf.d/20-intel.conf
+  install -Dm0644 30-monitor.conf ${pkgdir}/etc/X11/xorg.conf.d/30-monitor.conf
+  install -Dm0644 40-touchscreen.conf ${pkgdir}/etc/X11/xorg.conf.d/40-touchscreen.conf
+  install -Dm0644 50-trackpoint.conf ${pkgdir}/etc/X11/xorg.conf.d/50-trackpoint.conf
 
-  # Install WiFi driver variables and firmware
-  local brcm_dir=$pkgdir/usr/lib/firmware/brcm
-  mkdir -p $brcm_dir
+  # install wifi driver variables
+  mkdir -p ${pkgdir}/usr/lib/firmware/brcm
+  install -Dm0644 brcmfmac4356-pcie.txt ${pkgdir}/usr/lib/firmware/brcm/brcmfmac4356-pcie.txt
 
-  install -Dm0644 brcmfmac4356-pcie.txt $brcm_dir/brcmfmac4356-pcie.txt
+  # enable bluetooth support
+  mkdir -p ${pkgdir}/etc/modules-load.d
+  echo 'btusb' > ${pkgdir}/etc/modules-load.d/btusb.conf
 
-  # linux-firmware package provides a newer version:
-  # install -Dm0644 brcmfmac4356-pcie.bin $brcm_dir/brcmfmac4356-pcie.bin
-
-  # Enable usb BT support
-  local modules_load_d=$pkgdir/etc/modules-load.d
-  mkdir -p $modules_load_d
-
-  echo 'btusb' > $modules_load_d/btusb.conf
-
-  # Adjust xorg configs
-  local xorg_conf_d=$pkgdir/etc/X11/xorg.conf.d
-  mkdir -p $xorg_conf_d
-
-  install -Dm0644 20-intel.conf $xorg_conf_d/20-intel.conf
-  install -Dm0644 30-monitor.conf $xorg_conf_d/30-monitor.conf
-  install -Dm0644 40-touchscreen.conf $xorg_conf_d/40-touchscreen.conf
-  install -Dm0644 50-trackpoint.conf $xorg_conf_d/50-trackpoint.conf
-
-  # Install sound configs
-  local ucm_dir=$pkgdir/usr/share/alsa/ucm/chtrt5645
-  mkdir -p $ucm_dir
-
-  install -Dm0644 chtrt5645.conf $ucm_dir/chtrt5645.conf
-  install -Dm0644 HiFi.conf $ucm_dir/HiFi.conf
+  # install bios blob
+  mkdir -p ${pkgdir}/etc/gpd/bios
+  install -Dm0644 Rom_8MB_Tablet.bin ${pkgdir}/etc/gpd/bios/Rom_8MB_Tablet.bin
 }
 
 # vim:set ts=2 sw=2 et:

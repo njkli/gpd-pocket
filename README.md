@@ -35,8 +35,7 @@ Server = https://github.com/njkli/\$repo/releases/download/\$arch
 EOL
 '
 
-# --force is required to overwrite alsa ucm profiles
-sudo pacman -Syyu --force gpd-pocket-support
+sudo pacman -Syyu gpd-pocket-support
 ```
 
 ## Features/Bugs:
@@ -56,13 +55,11 @@ sudo pacman -Syyu --force gpd-pocket-support
 While [Official Arch install docu](https://wiki.archlinux.org/index.php/Installation_guide) provides more in-depth details, it isn't the quickest way of doing things.
 
 ## Packages
-* linux-jwrdegoede
+* alsa-lib-gpd-pocket
+* gpd-pocket-scrolling
 * gpd-pocket-support
+* linux-jwrdegoede
 
 ## TODO:
 * Integrate [touchegg](https://github.com/JoseExposito/touchegg)
 * properly merge config.x86_64 into Hans's .config
-
-## FIXME:
-* alsa-lib installs it's own /usr/share/alsa/ucm/chtrt5645 and it conflicts with our copies.
-* Will someone knowledgeable in PKGBUILD please give a pointer, as to how to reconcile the above discrepancy!
