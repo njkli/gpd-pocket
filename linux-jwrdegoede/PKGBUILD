@@ -51,9 +51,6 @@ prepare() {
   # use included config (overwrite repo config)
   cp -Tf ../config .config
 
-  # set kernel version
-  sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config
-
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
 
