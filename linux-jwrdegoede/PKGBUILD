@@ -58,7 +58,7 @@ prepare() {
   make olddefconfig
 
   # get kernel version
-  make prepare§
+  make prepare
 
   # rewrite configuration
   yes "" | make config >/dev/null
