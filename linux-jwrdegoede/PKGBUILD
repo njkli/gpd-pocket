@@ -14,7 +14,7 @@ license=('GPL2')
 makedepends=('git' 'xmlto' 'kmod' 'inetutils' 'bc' 'libelf')
 options=('!strip')
 source=(
-  "git+https://github.com/jwrdegoede/${_srcname}.git"
+  "https://github.com/jwrdegoede/${_srcname}/archive/master.zip"
   'config'
   '60-linux.hook'
   '90-linux.hook'
@@ -55,6 +55,9 @@ prepare() {
 
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
+
+  # load cofiguration
+  make olddefconfig
 
   # get kernel version
   make prepare
