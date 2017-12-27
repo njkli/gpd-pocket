@@ -5,16 +5,16 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgbase=linux-jwrdegoede
-_srcname=linux-sunxi
+_srcname=linux-sunxi-master
 pkgver=git
 pkgrel=1
 arch=('x86_64')
 url='https://www.kernel.org/'
 license=('GPL2')
-makedepends=('git' 'xmlto' 'kmod' 'inetutils' 'bc' 'libelf')
+makedepends=('xmlto' 'kmod' 'inetutils' 'bc' 'libelf')
 options=('!strip')
 source=(
-  "https://github.com/jwrdegoede/${_srcname}/archive/master.zip"
+  'https://github.com/jwrdegoede/linux-sunxi/archive/master.zip'
   'config'
   '60-linux.hook'
   '90-linux.hook'
