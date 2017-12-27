@@ -18,7 +18,7 @@ source=(
   'config'
   '60-linux.hook'
   '90-linux.hook'
-  "${pkgbase}.preset"
+  'linux.preset'
 )
 
 validpgpkeys=(
