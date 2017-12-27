@@ -38,9 +38,9 @@ _kernelname=${pkgbase#linux}
 
 pkgver() {
   cd ${_srcname}
-  local ver=$(head -n5 Makefile | awk -F'=' '{print $2}' | sed 's/ //g')
+  local ver=($(head -n5 Makefile | awk -F'=' '{print $2}' | sed 's/\n//g'))
   local commit=$(git rev-parse --short HEAD)
-  printf "%s" "${ver[0]}.${ver[1]}.${ver[2]}${ver[3]/-/}.${commit}"
+  printf "%s" "${ver[0]}.${ver[1]}.${ver[2]}${ver[3]}.${commit}"
 }
 
 prepare() {
