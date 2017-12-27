@@ -76,12 +76,4 @@ post_upgrade() {
 
 post_remove() {
     note "This pkg might've left artifacts on your system..."
-
-    # mv $ucm_dir/chtrt5645.conf.orig $ucm_dir/chtrt5645.conf
-    # mv $ucm_dir/HiFi.conf.orig $ucm_dir/HiFi.conf
 }
-
-# pre_install() {
-#     mv $ucm_dir/chtrt5645.conf $ucm_dir/chtrt5645.conf.orig
-#     mv $ucm_dir/HiFi.conf $ucm_dir/HiFi.conf.orig
-# }

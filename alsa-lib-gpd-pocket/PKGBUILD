@@ -5,33 +5,42 @@
 
 pkgname=alsa-lib-gpd-pocket
 pkgver=1.1.5
+_srcname=alsa-lib-${pkgver}
 pkgrel=1
-pkgdesc="An alternative implementation of Linux sound support WITH GPD Pocket patches"
+pkgdesc='An alternative implementation of Linux sound support WITH GPD Pocket patches'
 arch=('x86_64')
-url="http://www.alsa-project.org"
+url='http://www.alsa-project.org'
 depends=('glibc')
 optdepends=('python2: for python smixer plugin')
 conflicts=('alsa-lib')
 provides=("alsa-lib=${pkgver}")
 makedepends=('python2')
 license=('LGPL')
-source=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-${pkgver}.tar.bz2"
-        'gpd-pocket.patch')
-md5sums=('a2b465c3a5265d8a57f3ff39c6c4fc29'
-         '3629f8930186506534698fc66089b2d7')
+source=(
+  "ftp://ftp.alsa-project.org/pub/lib/${_srcname}.tar.bz2"
+  'gpd-pocket.patch'
+)
+sha256sums=(
+  'f4f68ad3c6da36b0b5241ac3c798a7a71e0e97d51f972e9f723b3f20a9650ae6'
+  '25dd2f46c450a14c19790251cf88719df292dfa5ed169570637956d3175c353e'
+)
 
 prepare() {
-  cd "${srcdir}/alsa-lib-${pkgver}"
-  patch -Np1 -i "${srcdir}/gpd-pocket.patch"
+  cd ${_srcname}
+  
+  patch -Np1 -i ../gpd-pocket.patch
 }
 
 build() {
-  cd "${srcdir}/alsa-lib-${pkgver}"
+  cd ${_srcname}
+  
   ./configure --without-debug --prefix=/usr --with-pythonlibs="-lpthread -lm -ldl -lpython2.7" --with-pythonincludes=-I/usr/include/python2.7
+  
   make
 }
 
 package() {
-  cd "${srcdir}/alsa-lib-${pkgver}"
+  cd ${_srcname}
+  
   make DESTDIR="${pkgdir}" install
 }
