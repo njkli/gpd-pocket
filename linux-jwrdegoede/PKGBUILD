@@ -46,12 +46,11 @@ pkgver() {
 prepare() {
   cd ${_srcname}
   
+  # use included config (overwrite repo config)
   cp -Tf ../config .config
 
-  if [ "${_kernelname}" != "" ]; then
-    sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config
-    sed -i "s|CONFIG_LOCALVERSION_AUTO=.*|CONFIG_LOCALVERSION_AUTO=n|" ./.config
-  fi
+  # set kernel version
+  sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config
 
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
