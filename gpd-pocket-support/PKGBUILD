@@ -2,7 +2,7 @@
 # Contributor: chrisaw <home@chrisaw.com>
 
 pkgname=gpd-pocket-support
-pkgver=0.1.2
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="GPD Pocket - Support package"
 arch=('x86_64')
@@ -16,7 +16,9 @@ source=(
   '30-monitor.conf'
   '40-touchscreen.conf'
   '50-trackpoint.conf'
+  '99-goodix-touch.rules'
   'brcmfmac4356-pcie.txt'
+  'btusb.conf'
   'Rom_8MB_Tablet.bin'
 )
 sha256sums=(
@@ -24,7 +26,9 @@ sha256sums=(
   'be089fdf8b6aded4dcc60ed181aa195676857b77e6f36d4ea8c8fa2d935db87c'
   'c044a6d291c246100b5bb17b921c0c2083124366a02bfd1db6a086e3e6da6819'
   '9cc7a4d44aa7fe872b090e41b1207a557bf479d5560d5fdbc924cb9832d27acf'
+  'ed1b14d3557122b22c91239bc45c9bd9eadc421a8e7a5111c209b1846948b763'
   '8d0a38da2a2ae5db1f4b1835df1d8653554fc3ccead13e2b98fad7ee76732d5d'
+  '394251115a4d11250e8b280048f9a7ec959561cedc8aa995ed1fb96ea7280d0f'
   '7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
 )
 
@@ -37,7 +41,11 @@ package() {
 
   # enable bluetooth support
   mkdir -p ${pkgdir}/etc/modules-load.d
-  echo 'btusb' > ${pkgdir}/etc/modules-load.d/btusb.conf
+  install -Dm0644 btusb.conf ${pkgdir}/etc/modules-load.d/btusb.conf
+
+  # enable touchscreen rotation in waylad
+  mkdir -p ${pkgdir}/etc/udev/rules.d
+  install -Dm0644 99-goodix-touch.rules ${pkgdir}/etc/udev/rules.d/99-goodix-touch.rules
 
   # install wifi driver variables
   mkdir -p ${pkgdir}/usr/lib/firmware/brcm

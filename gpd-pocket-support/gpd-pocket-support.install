@@ -14,7 +14,7 @@ note() {
 
 _bios() {
   if [ "$(dmidecode -s bios-release-date)" == '06/28/2017' ]; then
-    local flashrom_msg="BIOS is already up-to-date"
+    local flashrom_msg="BIOS is already up-to-date."
   else
     local flashrom_msg="You need to update your BIOS!\n\nsudo flashrom -p internal -w /etc/gpd/bios/Rom_8MB_Tablet.bin\n"
   fi
@@ -42,7 +42,7 @@ _default_pa() {
 _update() {
   msg_blue "Adjusting PulseAudio config..."
   _default_pa
-  msg_blue "Checking BIOS version..."
+  msg_blue "Checking installed BIOS version..."
   _bios
 }
 
