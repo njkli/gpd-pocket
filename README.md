@@ -45,8 +45,11 @@ sudo pacman -Syyu gpd-pocket-support
   sha256sum Rom_8MB_Tablet.bin
   # 7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e  Rom_8MB_Tablet.bin
   ```
-* xkb fixes - del/backspace
-* xorg.conf.d/ goodies for touchscreen/orientation
+* alsa-lib
+* display rotation - xorg only
+* display tearfree - xorg only
+* touchscreen calibration - wayland and xorg
+* touchscreen rotation - wayland and xorg
 * pulseaudio
 * wifi/bt
 
@@ -59,7 +62,3 @@ While [Official Arch install docu](https://wiki.archlinux.org/index.php/Installa
 * gpd-pocket-scrolling
 * gpd-pocket-support
 * linux-jwrdegoede
-
-## TODO:
-* Integrate [touchegg](https://github.com/JoseExposito/touchegg)
-* properly merge config.x86_64 into Hans's .config
