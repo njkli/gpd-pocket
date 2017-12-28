@@ -13,7 +13,7 @@ note() {
 }
 
 _bios() {
-  if dmidecode -t bios -q |grep --quiet '06/28/2017'; then
+  if [ "$(dmidecode -s bios-release-date)" == '06/28/2017' ]; then
     local flashrom_msg="BIOS is already up-to-date"
   else
     local flashrom_msg="You need to update your BIOS!\n\nsudo flashrom -p internal -w /etc/gpd/bios/Rom_8MB_Tablet.bin\n"
