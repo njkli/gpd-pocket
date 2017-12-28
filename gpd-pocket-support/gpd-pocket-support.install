@@ -1,5 +1,3 @@
-# -*- shell-script -*-
-# Colored makepkg-like functions
 ucm_dir="/usr/share/alsa/ucm/chtrt5645"
 all_off="$(tput sgr0)"
 bold="${all_off}$(tput bold)"
@@ -7,63 +5,45 @@ blue="${bold}$(tput setaf 4)"
 yellow="${bold}$(tput setaf 3)"
 
 msg_blue() {
-    printf "${blue}==>${bold} $1${all_off}\n"
+  printf "${blue}==>${bold} $1${all_off}\n"
 }
 
 note() {
-    printf "${blue}==>${yellow} NOTE:${bold} $1${all_off}\n"
+  printf "${blue}==>${yellow} NOTE:${bold} $1${all_off}\n"
+}
+
+_bios() {
+  if dmidecode -t bios -q |grep '06/28/2017'; then
+    local flashrom_msg="BIOS is already up-to-date"
+  else
+    local flashrom_msg="You need to update your BIOS!\n\nsudo flashrom -p internal -w /etc/gpd/bios/Rom_8MB_Tablet.bin\n"
+  fi
+  
+  note "$flashrom_msg"
 }
 
 _default_pa() {
-    local scp="set-card-profile alsa_card.platform-cht-bsw-rt5645 HiFi"
-    local sds="set-default-sink alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink"
-    local ssp="set-sink-port alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink [Out] Speaker"
-    local lines=("$scp" "$sds" "$ssp")
-    local cfg="/etc/pulse/default.pa"
+  local scp="set-card-profile alsa_card.platform-cht-bsw-rt5645 HiFi"
+  local sds="set-default-sink alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink"
+  local ssp="set-sink-port alsa_output.platform-cht-bsw-rt5645.HiFi__hw_chtrt5645__sink [Out] Speaker"
+  local lines=("$scp" "$sds" "$ssp")
+  local cfg="/etc/pulse/default.pa"
 
-    for i in "${lines[@]}"; do
-        [[ ! $(grep -F "${i}" $cfg) ]] && echo "${i}" >> $cfg || msg_blue "Line found in $cfg: (${i}) skipping..."
-    done
+  for i in "${lines[@]}"; do
+      [[ ! $(grep -F "${i}" $cfg) ]] && echo "${i}" >> $cfg || msg_blue "Line found in $cfg: (${i}) skipping..."
+  done
 
-    local rts="realtime-scheduling = no"
-    local pd_conf="/etc/pulse/daemon.conf"
+  local rts="realtime-scheduling = no"
+  local pd_conf="/etc/pulse/daemon.conf"
 
-    [[ ! $(grep "^${rts}$" $pd_conf) ]] && echo "${rts}" >> $pd_conf || msg_blue "Line found in $pd_conf: (${rts}) skipping..."
-}
-
-_bootctl() {
-    local boot_loader_msg=$(cat <<'EOS'
-You should probably update/install systemd-boot loader like so:
-partuuid=$(blkid | grep mmcblk0p2 | awk -F'=' '{print $5}' | sed 's/"//g')
-cat > /boot/loader/entries/linux-jwrdegoede.conf <<EOR
-title   Arch Linux - jwrdegoede (https://github.com/jwrdegoede/linux-sunxi)
-linux   /vmlinuz-linux-jwrdegoede
-initrd  /intel-ucode.img
-initrd  /initramfs-linux-jwrdegoede.img
-options root=PARTUUID=$partuuid i915.fastboot=1 i915.semaphores=1 rw quiet
-EOR
-
-cat > /boot/loader/loader.conf <<EOR
-timeout 0
-default linux-jwrdegoede
-EOR
-
-EOS
-          )
-    note "$boot_loader_msg"
+  [[ ! $(grep "^${rts}$" $pd_conf) ]] && echo "${rts}" >> $pd_conf || msg_blue "Line found in $pd_conf: (${rts}) skipping..."
 }
 
 _update() {
-    msg_blue "Adjusting PulseAudio config..."
-    _default_pa
-
-    local flashrom_msg=$(cat <<'EOS'
-You should probably update your BIOS!
-cd /etc/gpd/bios
-sudo flashrom -p internal -w Rom_8MB_Tablet.bin
-EOS
-          )
-    note "$flashrom_msg"
+  msg_blue "Adjusting PulseAudio config..."
+  _default_pa
+  msg_blue "Checking BIOS version..."
+  _bios
 }
 
 post_install() {
