@@ -60,7 +60,8 @@ _repo() {
       sed -e -i '' '/[gpd-pocket]/,+4d' /etc/pacman.conf
     fi
     
-    echo "\n[gpd-pocket]" >> /etc/pacman.conf
+    echo >> /etc/pacman.conf
+    echo '[gpd-pocket]' >> /etc/pacman.conf
     echo 'SigLevel = Required TrustedOnly' >> /etc/pacman.conf
     echo 'Server = https://github.com/njkli/$repo/releases/download/$arch' >> /etc/pacman.conf
   fi
