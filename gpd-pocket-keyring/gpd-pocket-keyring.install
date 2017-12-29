@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 
 post_upgrade() {
-	pacman-key --populate gpd-pocket
+  pacman-key --populate gpd-pocket
 
   if grep -Fqx gpd-pocket /etc/pacman.conf; then
     sed -e'/\[gpd-pocket\]/,+4d' -i'' /etc/pacman.conf
@@ -13,5 +13,5 @@ post_upgrade() {
 }
 
 post_install() {
-	pacman-key --populate gpd-pocket
+  pacman-key --populate gpd-pocket
 }

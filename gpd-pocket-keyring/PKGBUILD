@@ -28,5 +28,5 @@ sha256sums=(
 )
 
 package() {
-	make PREFIX=/usr DESTDIR=${pkgdir} install
+  make PREFIX=/usr DESTDIR=${pkgdir} install
 }
