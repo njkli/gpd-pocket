@@ -4,7 +4,7 @@
 pkgname=gpd-pocket-support
 pkgver=0.2.1
 pkgrel=1
-pkgdesc="GPD Pocket - Support package"
+pkgdesc='GPD Pocket - Support package'
 arch=('x86_64')
 url='https://github.com/njkli/gpd-pocket'
 license=('MIT')
@@ -41,13 +41,13 @@ package() {
   mkdir -p ${pkgdir}/etc/modules-load.d
   install -Dm0644 btusb.conf ${pkgdir}/etc/modules-load.d/btusb.conf
 
-  # enable touchscreen rotation in waylad
-  mkdir -p ${pkgdir}/etc/udev/rules.d
-  install -Dm0644 99-goodix-touch.rules ${pkgdir}/etc/udev/rules.d/99-goodix-touch.rules
-
   # install wifi driver variables
   mkdir -p ${pkgdir}/usr/lib/firmware/brcm
   install -Dm0644 brcmfmac4356-pcie.txt ${pkgdir}/usr/lib/firmware/brcm/brcmfmac4356-pcie.txt
+
+  # set wayland configs
+  mkdir -p ${pkgdir}/etc/udev/rules.d
+  install -Dm0644 99-goodix-touch.rules ${pkgdir}/etc/udev/rules.d/99-goodix-touch.rules
 
   # set xorg configs
   mkdir -p ${pkgdir}/etc/X11/xorg.conf.d
