@@ -6,7 +6,7 @@
 
 # njkli/gpd-pocket
 
-* In hopes of 4.15 having ootb support, here's a bit of a quick-fix(TM) - because why pollute AUR?
+* In hopes of soon having ootb support, here's a bit of a quick-fix(TM) - because why pollute AUR?
 * The intent is to obsolete this repo ASAP!
 * USE AT YOUR OWN RISK - read the sources and decide if it's your cup'o'tea
 * [My rant/review](https://github.com/njkli/gpd-pocket/blob/master/rant.md) of this device
@@ -33,7 +33,7 @@ sudo pacman -Syu --noconfirm gpd-pocket-support
   sha256sum Rom_8MB_Tablet.bin
   # 7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e  Rom_8MB_Tablet.bin
   ```
-* alsa-lib
+* alsa-lib replacement (with necessary patch)
 * display rotation - xorg only
 * display tearfree - xorg only
 * touchscreen calibration - wayland and xorg
