@@ -39,41 +39,11 @@ _default_pa() {
   [[ ! $(grep "^${rts}$" $pd_conf) ]] && echo "${rts}" >> $pd_conf || msg_blue "Line found in $pd_conf: (${rts}) skipping..."
 }
 
-_repo() {
-  if [ -f /share/pacman/keyrings/njkli.gpg ]; then
-    note "repo already configured!"
-  else
-    note "importing key..."
-    baseurl="https://github.com/njkli/archlinux/releases/download/keyring"
-    kring="$baseurl/njkli-keyring-20170902-1-any.pkg.tar.xz"
-    kring_sig="$baseurl/njkli-keyring-20170902-1-any.pkg.tar.xz.sig"
-    kring_files=("${kring}" "${kring_sig}")
-
-    for i in ${kring_files[@]}; do curl -fLOs $i; done
-    gpg --keyserver hkp://keys.gnupg.net --recv-keys A09383D0550C42E2D6CE7C822F90CB4F042140DC
-    gpg --verify njkli-keyring-20170902-1-any.pkg.tar.xz.sig
-    rm -f njkli-keyring-20170902-1-any.pkg.tar.xz.sig
-    pacman -U --noconfirm njkli-keyring-20170902-1-any.pkg.tar.xz
-      
-    note "securing pacman configuration..."
-    if grep "[gpd-pocket]" /etc/pacman.conf; then
-      sed -e -i '' '/[gpd-pocket]/,+4d' /etc/pacman.conf
-    fi
-    
-    echo >> /etc/pacman.conf
-    echo '[gpd-pocket]' >> /etc/pacman.conf
-    echo 'SigLevel = Required TrustedOnly' >> /etc/pacman.conf
-    echo 'Server = https://github.com/njkli/$repo/releases/download/$arch' >> /etc/pacman.conf
-  fi
-}
-
 _update() {
   msg_blue "Checking installed BIOS version..."
   _bios
   msg_blue "Adjusting PulseAudio config..."
   _default_pa
-  msg_blue "Checking pacman repo configuration..."
-  _repo
 }
 
 post_install() {

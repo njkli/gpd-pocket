@@ -14,15 +14,14 @@
 ## Install
 
 ```
-sudo runuser -l -c \
-'cat >> /etc/pacman.conf << EOL
-[gpd-pocket]
-SigLevel = Optional TrustAll
-Server = https://github.com/njkli/\$repo/releases/download/\$arch
-EOL
-'
+sudo -i
 
-sudo pacman -Syu --noconfirm gpd-pocket-support
+echo >> /etc/pacman.conf
+echo '[gpd-pocket]' >> /etc/pacman.conf
+echo 'SigLevel = Optional TrustAll' >> /etc/pacman.conf
+echo 'Server = https://github.com/njkli/$repo/releases/download/$arch' >> /etc/pacman.conf
+
+pacman -Syu --noconfirm gpd-pocket-support
 ```
 
 ## Features/Bugs:

@@ -8,7 +8,7 @@ pkgdesc="GPD Pocket - Support package"
 arch=('x86_64')
 url='https://github.com/njkli/gpd-pocket'
 license=('MIT')
-depends=(alsa-lib-gpd-pocket dmidecode flashrom intel-ucode linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers pulseaudio systemd)
+depends=(alsa-lib-gpd-pocket dmidecode flashrom gpd-pocket-keyring intel-ucode linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers pulseaudio systemd)
 provides=(gpd-pocket-support)
 install=gpd-pocket-support.install
 source=(
@@ -33,8 +33,6 @@ sha256sums=(
 )
 
 package() {
-  cd "${srcdir}"
-
   # install bios blob
   mkdir -p ${pkgdir}/etc/gpd/bios
   install -Dm0644 Rom_8MB_Tablet.bin ${pkgdir}/etc/gpd/bios/Rom_8MB_Tablet.bin

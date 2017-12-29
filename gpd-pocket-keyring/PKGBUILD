@@ -1,0 +1,32 @@
+# Based on the file created for Arch Linux by:
+# 
+
+# Maintainer:  <voobscout@archlinux.info>
+# Contributor: chrisaw <home@chrisaw.com>
+# Contributor: Pierre Schmitz <pierre@archlinux.de>
+
+pkgname=gpd-pocket-keyring
+pkgver=0.0.1
+pkgrel=1
+pkgdesc='gpd-pocket PGP keyring'
+arch=('any')
+url='https://github.com/njkli/gpd-pocket'
+license=('MIT')
+install="${pkgname}.install"
+source=(
+  'Makefile'
+  'gpd-pocket.gpg'
+  'gpd-pocket-revoked'
+  'gpd-pocket-trusted'
+)
+
+sha256sums=(
+  '2df7e0238a7e5525e602b72f440ca0170feb6cb0de8430bc3e6e423b17457ace'
+  '977d8c3e4030e6834cc170e46bf8c0309076e412c05fca58fc6e4001884a7c78'
+  'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+  'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+)
+
+package() {
+	make PREFIX=/usr DESTDIR=${pkgdir} install
+}

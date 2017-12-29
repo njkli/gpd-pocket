@@ -1,0 +1,18 @@
+# -*- shell-script -*-
+
+post_upgrade() {
+	pacman-key --populate gpd-pocket
+
+  if grep '[gpd-pocket]' /etc/pacman.conf; then
+    sed -e '/[gpd-pocket]/,+4d' -i '' /etc/pacman.conf
+  fi
+
+  echo >> /etc/pacman.conf
+  echo '[gpd-pocket]' >> /etc/pacman.conf
+  echo 'SigLevel = Required TrustedOnly' >> /etc/pacman.conf
+  echo 'Server = https://github.com/njkli/$repo/releases/download/$arch' >> /etc/pacman.conf
+}
+
+post_install() {
+	post_upgrade
+}
