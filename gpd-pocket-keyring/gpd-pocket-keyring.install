@@ -4,7 +4,7 @@ post_upgrade() {
 	pacman-key --populate gpd-pocket
 
   if grep '[gpd-pocket]' /etc/pacman.conf; then
-    sed -e '/[gpd-pocket]/,+4d' -i '' /etc/pacman.conf
+    sed -e'/\[gpd-pocket\]/,+4d' -i'' /etc/pacman.conf
   fi
 
   echo >> /etc/pacman.conf
