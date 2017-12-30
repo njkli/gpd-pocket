@@ -6,7 +6,7 @@
 
 pkgbase=linux-jwrdegoede
 _srcname=linux-sunxi-master
-pkgver=git
+pkgver=4.15.0rc5.3bdb544
 pkgrel=1
 arch=('x86_64')
 url='https://www.kernel.org/'
@@ -28,7 +28,7 @@ validpgpkeys=(
 
 sha256sums=(
   'SKIP'
-  '9cefc980f69fdc0313a6b62517d6648533dc2b0f6549c9ae9da2f81bceb45869'
+  'd728b466b5fe2e715b72ae461bddd7fa01cba3670e096bf0fe88a8bf9d79f3ca'
   '65ae261b314e266de809b212e4d5fd4d9e84b206771a3d59b7638b1b52744789'
   'cbee6b874133a4c335e6844a20eaec419da93dba70861864ff84b944a0d5524c'
   'ad6344badc91ad0630caacde83f7f9b97276f80d26a20619a87952be65492c65'
