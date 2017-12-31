@@ -2,7 +2,7 @@
 # Contributor: chrisaw <home@chrisaw.com>
 
 pkgname=gpd-pocket-support
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc='GPD Pocket - Support package'
 arch=('x86_64')
