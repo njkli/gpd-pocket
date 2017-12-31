@@ -1,2 +1,0 @@
-# Config from http://daniel-lnx.blogspot.co.uk/2017/07/gpd-pocker-touchscreen-rotation-with.html
-ACTION=="add|change", KERNEL=="event[0-9]*", ATTRS{name}=="Goodix Capacitive TouchScreen", ENV{LIBINPUT_CALIBRATION_MATRIX}="0 1 0 -1 0 1"
