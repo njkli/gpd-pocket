@@ -2,13 +2,13 @@
 # Contributor: chrisaw <home@chrisaw.com>
 
 pkgname=gpd-pocket-support
-pkgver=0.2.2
+pkgver=0.2.4
 pkgrel=1
 pkgdesc='GPD Pocket - Support package'
 arch=('x86_64')
 url='https://github.com/njkli/gpd-pocket'
 license=('MIT')
-depends=(alsa-lib-gpd-pocket dmidecode flashrom gpd-pocket-keyring intel-ucode linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers pulseaudio systemd)
+depends=(alsa-lib-gpd-pocket dmidecode flashrom gawk gpd-pocket-keyring intel-ucode linux-jwrdegoede linux-jwrdegoede-docs linux-jwrdegoede-headers pulseaudio systemd)
 provides=(gpd-pocket-support)
 install=gpd-pocket-support.install
 source=(
@@ -17,9 +17,12 @@ source=(
   '40-touchscreen.conf'
   '50-trackpoint.conf'
   'brcmfmac4356-pcie.txt'
-  'btusb.conf'
-  'monitors.xml'
+  'load-btusb.conf'
   'Rom_8MB_Tablet.bin'
+  'suspend-btusb.conf'
+  'suspend-goodix.conf'
+  'suspend-iwlwifi.conf'
+  'suspend-modules.sh'
 )
 sha256sums=(
   '9e4981a8f0a7d04fc7a4e866ccc0be65adbdd1fd29907af1543ed2634919433d'
@@ -28,8 +31,11 @@ sha256sums=(
   '9cc7a4d44aa7fe872b090e41b1207a557bf479d5560d5fdbc924cb9832d27acf'
   'e69c11e9f49a0cd9a54ba1d8c2f2afea4a7fc55d02faf72d9c98ea33bc88deb0'
   '394251115a4d11250e8b280048f9a7ec959561cedc8aa995ed1fb96ea7280d0f'
-  '412dc1fe98b1a1194421dc377afa70069144a7ff060fe291b87a2e9ad6fb34b9'
   '7510862031b1c616e6079b6a41afe566bc7f5cb17e1a71ad48746c579f733a6e'
+  '394251115a4d11250e8b280048f9a7ec959561cedc8aa995ed1fb96ea7280d0f'
+  '65324de32cdf4f61c9bbf76d4eec4fca371ddd1502583e1339b5d87fd91e2fac'
+  'f99e6b268f906ca19c0d45e242960d5bf7b718030380b6f079f069fbe76b6224'
+  'a56da9d132465842d5b81cc3563fe0b9da4f502a71b022b0cdcf4ca222cc9435'
 )
 
 package() {
@@ -39,19 +45,18 @@ package() {
 
   # enable bluetooth support
   mkdir -p ${pkgdir}/etc/modules-load.d
-  install -Dm0644 btusb.conf ${pkgdir}/etc/modules-load.d/btusb.conf
+  install -Dm0644 load-btusb.conf ${pkgdir}/etc/modules-load.d/btusb.conf
 
-  # install gdm config
-  mkdir -p ${pkgdir}/var/lib/gdm/.config
-  install -Dm0644 monitors.xml ${pkgdir}/var/lib/gdm/.config/monitors.xml
+  # install suspend scripts
+  mkdir -p ${pkgdir}/etc/suspend-modules.d ${pkgdir}/lib/systemd/system-sleep
+  install -Dm0644 suspend-btusb.conf ${pkgdir}/etc/suspend-modules.d/btusb.conf
+  install -Dm0644 suspend-goodix.conf ${pkgdir}/etc/suspend-modules.d/goodix.conf
+  install -Dm0644 suspend-iwlwifi.conf ${pkgdir}/etc/suspend-modules.d/iwlwifi.conf
+  install -Dm0777 suspend-modules.sh ${pkgdir}/lib/systemd/system-sleep/suspend-modules
 
   # install wifi driver variables
   mkdir -p ${pkgdir}/usr/lib/firmware/brcm
   install -Dm0644 brcmfmac4356-pcie.txt ${pkgdir}/usr/lib/firmware/brcm/brcmfmac4356-pcie.txt
-
-  # set wayland configs
-  mkdir -p ${pkgdir}/etc/udev/rules.d
-  install -Dm0644 99-goodix-touch.rules ${pkgdir}/etc/udev/rules.d/99-goodix-touch.rules
 
   # set xorg configs
   mkdir -p ${pkgdir}/etc/X11/xorg.conf.d
