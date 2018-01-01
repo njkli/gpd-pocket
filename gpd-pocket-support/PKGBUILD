@@ -48,11 +48,11 @@ package() {
   install -Dm0644 load-btusb.conf ${pkgdir}/etc/modules-load.d/btusb.conf
 
   # install suspend scripts
-  mkdir -p ${pkgdir}/etc/suspend-modules.d ${pkgdir}/lib/systemd/system-sleep
+  mkdir -p ${pkgdir}/etc/suspend-modules.d ${pkgdir}/usr/lib/systemd/system-sleep
   install -Dm0644 suspend-btusb.conf ${pkgdir}/etc/suspend-modules.d/btusb.conf
   install -Dm0644 suspend-goodix.conf ${pkgdir}/etc/suspend-modules.d/goodix.conf
   install -Dm0644 suspend-iwlwifi.conf ${pkgdir}/etc/suspend-modules.d/iwlwifi.conf
-  install -Dm0777 suspend-modules.sh ${pkgdir}/lib/systemd/system-sleep/suspend-modules
+  install -Dm0777 suspend-modules.sh ${pkgdir}/usr/lib/systemd/system-sleep/suspend-modules
 
   # install wifi driver variables
   mkdir -p ${pkgdir}/usr/lib/firmware/brcm
