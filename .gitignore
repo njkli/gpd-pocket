@@ -1,1 +1,5 @@
 /repo/*
+/alsa-lib-gpd-pocket/alsa-lib-*.tar.bz2
+/alsa-lib-gpd-pocket/alsa-lib-gpd-pocket-*-x86_64.pkg.tar.xz
+/alsa-lib-gpd-pocket/pkg/
+/alsa-lib-gpd-pocket/src/
