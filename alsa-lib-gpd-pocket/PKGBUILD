@@ -18,17 +18,15 @@ makedepends=('python2')
 license=('LGPL')
 source=(
   "ftp://ftp.alsa-project.org/pub/lib/${_srcname}.tar.bz2"
-  'gpd-pocket.patch'
+  'HiFi.conf'
 )
 sha256sums=(
   'f4f68ad3c6da36b0b5241ac3c798a7a71e0e97d51f972e9f723b3f20a9650ae6'
-  '25dd2f46c450a14c19790251cf88719df292dfa5ed169570637956d3175c353e'
+  'SKIP'
 )
 
 prepare() {
-  cd ${_srcname}
-  
-  patch -Np1 -i ../gpd-pocket.patch
+  cp HiFi.conf ${_srcname}/src/conf/ucm/chtrt5645/HiFi.conf
 }
 
 build() {
