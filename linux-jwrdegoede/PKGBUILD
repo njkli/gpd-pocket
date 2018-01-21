@@ -5,8 +5,8 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgbase=linux-jwrdegoede
-_srcname=linux-sunxi-master
-pkgver=4.15.0rc5.3bdb544
+_srcname=linux-sunxi
+pkgver=4.15.0rc5.git
 pkgrel=1
 arch=('x86_64')
 url='https://www.kernel.org/'
@@ -14,7 +14,6 @@ license=('GPL2')
 makedepends=('xmlto' 'kmod' 'inetutils' 'bc' 'libelf')
 options=('!strip')
 source=(
-  'https://github.com/jwrdegoede/linux-sunxi/archive/master.zip'
   'config'
   '60-linux.hook'
   '90-linux.hook'
@@ -27,7 +26,6 @@ validpgpkeys=(
 )
 
 sha256sums=(
-  'SKIP'
   'd728b466b5fe2e715b72ae461bddd7fa01cba3670e096bf0fe88a8bf9d79f3ca'
   '65ae261b314e266de809b212e4d5fd4d9e84b206771a3d59b7638b1b52744789'
   'cbee6b874133a4c335e6844a20eaec419da93dba70861864ff84b944a0d5524c'
@@ -46,6 +44,9 @@ pkgver() {
 }
 
 prepare() {
+  rm -rf ${_srcname}
+  git clone --depth=1 git@github.com:jwrdegoede/linux-sunxi.git
+
   cd ${_srcname}
   
   # use included config (overwrite repo config)
