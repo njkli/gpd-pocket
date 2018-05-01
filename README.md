@@ -1,3 +1,5 @@
+* This repo became obsolete with 4.17-rc1! It is now archived.
+
 ![GPD Pocket](https://raw.githubusercontent.com/njkli/gpd-pocket/master/imgs/pocket_arch.png "Yay Gimp!")
 
 * Made possible by [Hans de Goede](https://github.com/jwrdegoede/linux-sunxi) and [cawilliamson](https://github.com/cawilliamson/ansible-gpdpocket)
